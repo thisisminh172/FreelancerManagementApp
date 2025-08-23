@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author thisi
@@ -13,8 +16,13 @@ public class ProjectListPanel extends javax.swing.JPanel {
     /**
      * Creates new form ProjectListPanel
      */
-    public ProjectListPanel() {
+    private JPanel mainPanel;
+    private CardLayout cl;
+
+    public ProjectListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
+        this.mainPanel = mainPanel;
+        this.cl = cl;
     }
 
     /**
@@ -49,4 +57,14 @@ public class ProjectListPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+    private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
+    private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
+    private String PROJECT_LIST = "PROJECT_LIST_PANEL";
+    private String CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT_PANEL";
+    private String SKILL_LIST = "SKILL_LIST_PANEL";
+    private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
+    private String USER_DETAIL = "USER_DETAIL_PANEL";
+    private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
+    private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
+    private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
 }

@@ -121,7 +121,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addNewFreelancerButton))
+                .addComponent(addNewFreelancerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -402,5 +402,14 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
+    private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
     private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
+    private String PROJECT_LIST = "PROJECT_LIST_PANEL";
+    private String CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT_PANEL";
+    private String SKILL_LIST = "SKILL_LIST_PANEL";
+    private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
+    private String USER_DETAIL = "USER_DETAIL_PANEL";
+    private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
+    private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
+    private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
 }

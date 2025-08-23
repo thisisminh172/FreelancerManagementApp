@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author thisi
@@ -13,8 +16,12 @@ public class CustomerListPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerListPanel
      */
-    public CustomerListPanel() {
+    private JPanel mainPanel;
+    private CardLayout cl;
+    public CustomerListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
+        this.mainPanel = mainPanel;
+        this.cl = cl;
     }
 
     /**
@@ -26,27 +33,40 @@ public class CustomerListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label1 = new java.awt.Label();
+        jLabel1 = new javax.swing.JLabel();
 
-        label1.setAlignment(java.awt.Label.CENTER);
-        label1.setText("DANH SÁCH KHÁCH HÀNG");
+        jLabel1.setText("DANH SÁCH KHÁCH HÀNG");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(635, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 480, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(478, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Label label1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+    private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
+    private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
+    private String PROJECT_LIST = "PROJECT_LIST_PANEL";
+    private String CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT_PANEL";
+    private String SKILL_LIST = "SKILL_LIST_PANEL";
+    private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
+    private String USER_DETAIL = "USER_DETAIL_PANEL";
+    private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
+    private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
+    private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
 }

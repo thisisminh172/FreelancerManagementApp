@@ -394,13 +394,13 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initPanels(JPanel mainPanel, CardLayout cl) {
         freelancerListPanel = new FreelancerListPanel(mainPanel, cl);
         createNewFreelancerPanel = new CreateNewFreelancerPanel();
-        projectListPanel = new ProjectListPanel();
+        projectListPanel = new ProjectListPanel(mainPanel, cl);
         createNewProjectPanel = new CreateNewProjectPanel();
-        skillListPanel = new SkillListPanel();
+        skillListPanel = new SkillListPanel(mainPanel, cl);
         createNewSkillPanel = new CreateNewSkillPanel();
         userDetailPanel = new UserDetailPanel();
         editUserDetailPanel = new EditUserDetailPanel();
-        customerListPanel = new CustomerListPanel();
+        customerListPanel = new CustomerListPanel(mainPanel, cl);
         createNewCustomerPanel = new CreateNewCustomerPanel();
     }
 

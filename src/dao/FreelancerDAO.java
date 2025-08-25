@@ -21,12 +21,10 @@ public class FreelancerDAO {
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 Freelancer f = new Freelancer(
-                        rs.getString("ma_freelancer"),
+                        rs.getInt("ma_freelancer"),
                         rs.getString("ho_ten"),
                         rs.getString("email"),
-                        rs.getString("so_dien_thoai"),
-                        rs.getString("ky_nang"),
-                        rs.getFloat("danh_gia")
+                        rs.getString("so_dien_thoai")
                 );
                 list.add(f);
             }
@@ -40,22 +38,20 @@ public class FreelancerDAO {
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, f.getMaFreelancer());
+            ps.setInt(1, f.getId());
             ps.setString(2, f.getHoTen());
             ps.setString(3, f.getEmail());
             ps.setString(4, f.getSoDienThoai());
-            ps.setString(5, f.getKyNang());
-            ps.setFloat(6, f.getDanhGia());
 
             return ps.executeUpdate() > 0;
         }
     }
 
     // Xóa Freelancer
-    public boolean delete(String maFreelancer) throws SQLException {
+    public boolean delete(int maFreelancer) throws SQLException {
         String sql = "DELETE FROM Freelancer WHERE ma_freelancer = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, maFreelancer);
+            ps.setInt(1, maFreelancer);
             return ps.executeUpdate() > 0;
         }
     }
@@ -67,9 +63,6 @@ public class FreelancerDAO {
             ps.setString(1, f.getHoTen());
             ps.setString(2, f.getEmail());
             ps.setString(3, f.getSoDienThoai());
-            ps.setString(4, f.getKyNang());
-            ps.setFloat(5, f.getDanhGia());
-            ps.setString(6, f.getMaFreelancer());
 
             return ps.executeUpdate() > 0;
         }
@@ -83,12 +76,10 @@ public class FreelancerDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Freelancer(
-                        rs.getString("ma_freelancer"),
+                        rs.getInt("ma_freelancer"),
                         rs.getString("ho_ten"),
                         rs.getString("email"),
-                        rs.getString("so_dien_thoai"),
-                        rs.getString("ky_nang"),
-                        rs.getFloat("danh_gia")
+                        rs.getString("so_dien_thoai")
                 );
             }
             return null;

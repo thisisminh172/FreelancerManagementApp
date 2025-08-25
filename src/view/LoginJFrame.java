@@ -4,8 +4,11 @@
  */
 package view;
 
+import controller.AuthService;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import model.User;
+import util.SessionManager;
 
 /**
  *
@@ -18,7 +21,7 @@ public class LoginJFrame extends javax.swing.JFrame {
      */
     public LoginJFrame() {
         initComponents();
-        
+
         passwordField.setForeground(Color.GRAY);
         passwordField.setEchoChar((char) 0);
     }
@@ -167,7 +170,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
         // TODO add your handling code here:
-        if(usernameField.getText().equals("nhập tên đăng nhập...")) {
+        if (usernameField.getText().equals("nhập tên đăng nhập...")) {
             usernameField.setText("");
             usernameField.setForeground(Color.BLACK);
         }
@@ -175,7 +178,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void usernameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusLost
         // TODO add your handling code here:
-        if(usernameField.getText().isEmpty()) {
+        if (usernameField.getText().isEmpty()) {
             usernameField.setForeground(Color.GRAY);
             usernameField.setText("nhập tên đăng nhập...");
         }
@@ -183,7 +186,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void passwordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusGained
         // TODO add your handling code here:
-        if(String.valueOf(passwordField.getPassword()).equals("nhập mật khẩu...")) {
+        if (String.valueOf(passwordField.getPassword()).equals("nhập mật khẩu...")) {
             passwordField.setText("");
             passwordField.setEchoChar('\u2022'); // Bullet character
             passwordField.setForeground(Color.BLACK);
@@ -192,7 +195,7 @@ public class LoginJFrame extends javax.swing.JFrame {
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
         // TODO add your handling code here:
-        if(String.valueOf(passwordField.getPassword()).isEmpty()) {
+        if (String.valueOf(passwordField.getPassword()).isEmpty()) {
             passwordField.setForeground(Color.GRAY);
             passwordField.setText("nhập mật khẩu...");
             passwordField.setEchoChar((char) 0); //show text
@@ -202,18 +205,33 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
         System.out.println("Login click");
-        
+
         // After click move to MainJFrame
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        
-        if (!"admin".equals(username) && !"password".equals(password)) {
+
+        // for test - REMOVE
+        username = "admin";
+        password = "123";
+        // for test - REMOVE
+
+        try {
+            AuthService auth = new AuthService();
+            User user = auth.login(username, password);
+            SessionManager.setCurrentUser(user);
+            success = true;
             new MainJFrame().setVisible(true);
             dispose();
-        } else {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            passwordField.setText("");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private boolean isSuccess() {
+        return success;
+    }
 
     private void forgetPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forgetPasswordButtonActionPerformed
         // TODO add your handling code here:
@@ -265,5 +283,5 @@ public class LoginJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordField;
     private java.awt.TextField usernameField;
     // End of variables declaration//GEN-END:variables
-    
+    private boolean success;
 }

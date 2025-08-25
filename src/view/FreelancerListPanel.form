@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="gioitinhButtonGroup">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="trangthaiButtonGroup">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[790, 500]"/>
@@ -178,66 +184,66 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="updateButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="resetButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="81" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField1" max="32767" attributes="0"/>
+                                  <Component id="hotenInput" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="jTextField2" max="32767" attributes="0"/>
+                                  <Component id="emailInput" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" max="32767" attributes="0"/>
+                                  <Component id="diachiInput" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField4" max="32767" attributes="0"/>
+                                  <Component id="dobInput" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField3" max="32767" attributes="0"/>
+                                  <Component id="sodienthoaiInput" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="idInput" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="namRadio" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nuRadio" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jRadioButton3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="sansangRadio" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jRadioButton4" min="-2" max="-2" attributes="0"/>
+                                          <Component id="banRadio" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextField6" max="32767" attributes="0"/>
+                                  <Component id="kynangScrollPane" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -253,54 +259,59 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="idInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="hotenInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="emailInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sodienthoaiInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dobInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="diachiInput" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="namRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nuRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="kynangScrollPane" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jRadioButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sansangRadio" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="banRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="updateButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="resetButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
@@ -348,38 +359,38 @@
             <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a ch&#x1ec9;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="hotenInput">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="emailInput">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="sodienthoaiInput">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField4">
+        <Component class="javax.swing.JTextField" name="dobInput">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField5">
+        <Component class="javax.swing.JTextField" name="diachiInput">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
             <Property name="text" type="java.lang.String" value="K&#x1ef9; n&#x103;ng"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton1">
+        <Component class="javax.swing.JRadioButton" name="namRadio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nam"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="namRadioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton2">
+        <Component class="javax.swing.JRadioButton" name="nuRadio">
           <Properties>
             <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nuRadioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="updateButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t"/>
           </Properties>
@@ -389,51 +400,40 @@
             <Property name="text" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton3">
+        <Component class="javax.swing.JRadioButton" name="sansangRadio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ho&#x1ea1;t &#x111;&#x1ed9;ng"/>
+            <Property name="text" type="java.lang.String" value="S&#x1eb5;ng s&#xe0;ng"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sansangRadioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="jRadioButton4">
+        <Component class="javax.swing.JRadioButton" name="banRadio">
           <Properties>
             <Property name="text" type="java.lang.String" value="B&#x1ead;n"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButton4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="banRadioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="resetButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetButtonActionPerformed"/>
           </Events>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Component class="javax.swing.JTextField" name="jTextField6">
+        <Component class="javax.swing.JTextField" name="idInput">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="F000001"/>
           </Properties>
         </Component>
+        <Container class="javax.swing.JScrollPane" name="kynangScrollPane">
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+        </Container>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel3">

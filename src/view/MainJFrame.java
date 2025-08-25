@@ -7,6 +7,8 @@ package view;
 import java.awt.CardLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
+import model.User;
+import util.SessionManager;
 import view.CreateNewCustomerPanel;
 import view.CreateNewFreelancerPanel;
 import view.CreateNewProjectPanel;
@@ -28,10 +30,10 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
+        handleLoginInfo();
         cl = (java.awt.CardLayout) mainPanel.getLayout();
         initPanels(mainPanel, cl);
         setGroupLayout();
-
         cl.show(mainPanel, FREELANCER_LIST); // default panel
     }
 
@@ -47,7 +49,6 @@ public class MainJFrame extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mainMenu = new javax.swing.JMenu();
-        loginMenuItem = new javax.swing.JMenuItem();
         logoutMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         freelancerMenu = new javax.swing.JMenu();
@@ -59,6 +60,7 @@ public class MainJFrame extends javax.swing.JFrame {
         projectMenu = new javax.swing.JMenu();
         projectListMenuItem = new javax.swing.JMenuItem();
         createNewProjectMenuItem = new javax.swing.JMenuItem();
+        plainingMenuItem = new javax.swing.JMenuItem();
         skillMenu = new javax.swing.JMenu();
         skillListMenuItem = new javax.swing.JMenuItem();
         createNewSkillMenuItem = new javax.swing.JMenuItem();
@@ -69,19 +71,10 @@ public class MainJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý Freelancer");
         setLocationByPlatform(true);
-        setPreferredSize(new java.awt.Dimension(850, 580));
 
         mainPanel.setLayout(new java.awt.CardLayout());
 
         mainMenu.setText("Main");
-
-        loginMenuItem.setText("Đăng nhập");
-        loginMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginMenuItemActionPerformed(evt);
-            }
-        });
-        mainMenu.add(loginMenuItem);
 
         logoutMenuItem.setText("Đăng xuất");
         logoutMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -164,6 +157,17 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         projectMenu.add(createNewProjectMenuItem);
 
+        plainingMenuItem.setBackground(new java.awt.Color(255, 255, 204));
+        plainingMenuItem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        plainingMenuItem.setForeground(new java.awt.Color(51, 51, 255));
+        plainingMenuItem.setText("Lập kế hoạch");
+        plainingMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plainingMenuItemActionPerformed(evt);
+            }
+        });
+        projectMenu.add(plainingMenuItem);
+
         jMenuBar1.add(projectMenu);
 
         skillMenu.setText("Kỹ năng");
@@ -186,7 +190,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(skillMenu);
 
-        userMenu.setText("Thông tin của bạn");
+        userMenu.setText("Hồ sơ");
 
         userDetailMenuItem.setText("Chi tiết");
         userDetailMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -278,12 +282,6 @@ public class MainJFrame extends javax.swing.JFrame {
         new LoginJFrame().setVisible(true);
     }//GEN-LAST:event_logoutMenuItemActionPerformed
 
-    private void loginMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginMenuItemActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        new LoginJFrame().setVisible(true);
-    }//GEN-LAST:event_loginMenuItemActionPerformed
-
     private void projectListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectListMenuItemActionPerformed
         // TODO add your handling code here:
         System.out.println("Danh sách dự án");
@@ -307,6 +305,12 @@ public class MainJFrame extends javax.swing.JFrame {
         System.out.println("Danh sách khách hàng");
         cl.show(mainPanel, CUSTOMER_LIST);
     }//GEN-LAST:event_CustomerListMenuItemActionPerformed
+
+    private void plainingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plainingMenuItemActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Lên kế hoạch");
+        cl.show(mainPanel, PLAINING);
+    }//GEN-LAST:event_plainingMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -355,10 +359,10 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem freelancerListMenuItem;
     private javax.swing.JMenu freelancerMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem loginMenuItem;
     private javax.swing.JMenuItem logoutMenuItem;
     private javax.swing.JMenu mainMenu;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JMenuItem plainingMenuItem;
     private javax.swing.JMenuItem projectListMenuItem;
     private javax.swing.JMenu projectMenu;
     private javax.swing.JMenuItem skillListMenuItem;
@@ -377,6 +381,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
+    private String PLAINING = "PLAINING_PANEL";
 
     private java.awt.CardLayout cl;
 
@@ -390,6 +395,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private EditUserDetailPanel editUserDetailPanel;
     private CustomerListPanel customerListPanel;
     private CreateNewCustomerPanel createNewCustomerPanel;
+    private PlainingPanel plainingPanel;
 
     private void initPanels(JPanel mainPanel, CardLayout cl) {
         freelancerListPanel = new FreelancerListPanel(mainPanel, cl);
@@ -402,6 +408,7 @@ public class MainJFrame extends javax.swing.JFrame {
         editUserDetailPanel = new EditUserDetailPanel();
         customerListPanel = new CustomerListPanel(mainPanel, cl);
         createNewCustomerPanel = new CreateNewCustomerPanel();
+        plainingPanel = new PlainingPanel(mainPanel, cl);
     }
 
     private void setGroupLayout() {
@@ -416,5 +423,13 @@ public class MainJFrame extends javax.swing.JFrame {
         mainPanel.add(editUserDetailPanel, EDIT_USER_DETAIL);
         mainPanel.add(customerListPanel, CUSTOMER_LIST);
         mainPanel.add(createNewCustomerPanel, CREATE_NEW_CUSTOMER);
+        mainPanel.add(plainingPanel, PLAINING);
+    }
+
+    private void handleLoginInfo() {
+        User loginUser = SessionManager.getCurrentUser();
+        String fullName = loginUser.getFullName();
+        userMenu.setText("Hồ sơ ("+fullName+")");
+        
     }
 }

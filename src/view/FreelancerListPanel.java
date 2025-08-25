@@ -4,7 +4,12 @@
  */
 package view;
 
+import controller.KyNangController;
 import java.awt.CardLayout;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 /**
@@ -22,6 +27,8 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        
+        formReady();
     }
 
     /**
@@ -33,6 +40,8 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        gioitinhButtonGroup = new javax.swing.ButtonGroup();
+        trangthaiButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -47,22 +56,21 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        hotenInput = new javax.swing.JTextField();
+        emailInput = new javax.swing.JTextField();
+        sodienthoaiInput = new javax.swing.JTextField();
+        dobInput = new javax.swing.JTextField();
+        diachiInput = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        namRadio = new javax.swing.JRadioButton();
+        nuRadio = new javax.swing.JRadioButton();
+        updateButton = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField6 = new javax.swing.JTextField();
+        sansangRadio = new javax.swing.JRadioButton();
+        banRadio = new javax.swing.JRadioButton();
+        resetButton = new javax.swing.JButton();
+        idInput = new javax.swing.JTextField();
+        kynangScrollPane = new javax.swing.JScrollPane();
         jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(790, 500));
@@ -154,51 +162,47 @@ public class FreelancerListPanel extends javax.swing.JPanel {
 
         jLabel11.setText("Kỹ năng");
 
-        jRadioButton1.setText("Nam");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        namRadio.setText("Nam");
+        namRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                namRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setText("Nữ");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        nuRadio.setText("Nữ");
+        nuRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                nuRadioActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Cập nhật");
+        updateButton.setText("Cập nhật");
 
         jLabel12.setText("Trạng thái");
 
-        jRadioButton3.setText("Hoạt động");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        sansangRadio.setText("Sẵng sàng");
+        sansangRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                sansangRadioActionPerformed(evt);
             }
         });
 
-        jRadioButton4.setText("Bận");
-        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+        banRadio.setText("Bận");
+        banRadio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton4ActionPerformed(evt);
+                banRadioActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Reset");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                resetButtonActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
-        jTextField6.setEditable(false);
-        jTextField6.setText("F000001");
+        idInput.setEditable(false);
+        idInput.setText("F000001");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -212,55 +216,55 @@ public class FreelancerListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1)
+                        .addComponent(updateButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(resetButton)
+                        .addContainerGap(81, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1))
+                                .addComponent(hotenInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2))
+                                .addComponent(emailInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField5))
+                                .addComponent(diachiInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField4))
+                                .addComponent(dobInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3))
+                                .addComponent(sodienthoaiInput))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(idInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton1)
+                                        .addComponent(namRadio)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton2))
+                                        .addComponent(nuRadio))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton3)
+                                        .addComponent(sansangRadio)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jRadioButton4)))
+                                        .addComponent(banRadio)))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField6)))
+                                .addComponent(kynangScrollPane)))
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -270,45 +274,48 @@ public class FreelancerListPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sodienthoaiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(diachiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(namRadio)
+                    .addComponent(nuRadio))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(94, 94, 94))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(kynangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4))
+                    .addComponent(sansangRadio)
+                    .addComponent(banRadio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(updateButton)
+                    .addComponent(resetButton))
                 .addGap(34, 34, 34))
         );
 
@@ -342,25 +349,25 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void namRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_namRadioActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void nuRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_nuRadioActionPerformed
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void sansangRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sansangRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_sansangRadioActionPerformed
 
-    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+    private void banRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_banRadioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4ActionPerformed
+    }//GEN-LAST:event_banRadioActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_resetButtonActionPerformed
 
     private void addNewFreelancerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewFreelancerButtonActionPerformed
         // TODO add your handling code here:
@@ -371,8 +378,13 @@ public class FreelancerListPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewFreelancerButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JRadioButton banRadio;
+    private javax.swing.JTextField diachiInput;
+    private javax.swing.JTextField dobInput;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.ButtonGroup gioitinhButtonGroup;
+    private javax.swing.JTextField hotenInput;
+    private javax.swing.JTextField idInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -387,20 +399,16 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JScrollPane kynangScrollPane;
+    private javax.swing.JRadioButton namRadio;
+    private javax.swing.JRadioButton nuRadio;
+    private javax.swing.JButton resetButton;
+    private javax.swing.JRadioButton sansangRadio;
+    private javax.swing.JTextField sodienthoaiInput;
+    private javax.swing.ButtonGroup trangthaiButtonGroup;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
     private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
     private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
@@ -412,4 +420,29 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
+    private final Map<String, JCheckBox> checkBoxes = new LinkedHashMap<>();
+    private KyNangController kyNangController;
+    
+    private void addSkillsToScrollPane() {
+        
+        JPanel skillsPanel = new JPanel();
+        skillsPanel.setLayout(new BoxLayout(skillsPanel, BoxLayout.Y_AXIS));
+        String[] dsKyNang = kyNangController.getKyNang();
+        for (String kyNang : dsKyNang) {
+            JCheckBox cb = new JCheckBox(kyNang);
+            checkBoxes.put(kyNang, cb);
+            skillsPanel.add(cb);
+        }
+        kynangScrollPane.setViewportView(skillsPanel);
+    }
+    
+    private void formReady() {
+        kyNangController = new KyNangController();
+        addSkillsToScrollPane();
+        // group button
+        gioitinhButtonGroup.add(namRadio);
+        gioitinhButtonGroup.add(nuRadio);
+        trangthaiButtonGroup.add(sansangRadio);
+        trangthaiButtonGroup.add(banRadio);
+    }
 }

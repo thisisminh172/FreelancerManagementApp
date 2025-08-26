@@ -67,6 +67,9 @@ public class MainJFrame extends javax.swing.JFrame {
         userMenu = new javax.swing.JMenu();
         userDetailMenuItem = new javax.swing.JMenuItem();
         editUserDetailMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        userListMenuItem = new javax.swing.JMenuItem();
+        createNewUserMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản lý Freelancer");
@@ -210,6 +213,26 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(userMenu);
 
+        jMenu1.setText("Người dùng");
+
+        userListMenuItem.setText("Danh sách người dùng");
+        userListMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userListMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(userListMenuItem);
+
+        createNewUserMenuItem.setText("➕ Thêm người dùng");
+        createNewUserMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createNewUserMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu1.add(createNewUserMenuItem);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -221,7 +244,7 @@ public class MainJFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -296,21 +319,28 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void CreateNewCustomerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateNewCustomerMenuItemActionPerformed
         // TODO add your handling code here:
-        System.out.println("Tạo khách hàng mới");
         cl.show(mainPanel, CREATE_NEW_CUSTOMER);
     }//GEN-LAST:event_CreateNewCustomerMenuItemActionPerformed
 
     private void CustomerListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerListMenuItemActionPerformed
         // TODO add your handling code here:
-        System.out.println("Danh sách khách hàng");
         cl.show(mainPanel, CUSTOMER_LIST);
     }//GEN-LAST:event_CustomerListMenuItemActionPerformed
 
     private void plainingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plainingMenuItemActionPerformed
         // TODO add your handling code here:
-        System.out.println("Lên kế hoạch");
         cl.show(mainPanel, PLAINING);
     }//GEN-LAST:event_plainingMenuItemActionPerformed
+
+    private void userListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userListMenuItemActionPerformed
+        // TODO add your handling code here:
+        cl.show(mainPanel, USER_LIST);
+    }//GEN-LAST:event_userListMenuItemActionPerformed
+
+    private void createNewUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewUserMenuItemActionPerformed
+        // TODO add your handling code here:
+        cl.show(mainPanel, CREATE_NEW_USER);
+    }//GEN-LAST:event_createNewUserMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,11 +383,13 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem createNewFreelancerMenuItem;
     private javax.swing.JMenuItem createNewProjectMenuItem;
     private javax.swing.JMenuItem createNewSkillMenuItem;
+    private javax.swing.JMenuItem createNewUserMenuItem;
     private javax.swing.JMenu customerMenu;
     private javax.swing.JMenuItem editUserDetailMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem freelancerListMenuItem;
     private javax.swing.JMenu freelancerMenu;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem logoutMenuItem;
     private javax.swing.JMenu mainMenu;
@@ -368,6 +400,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem skillListMenuItem;
     private javax.swing.JMenu skillMenu;
     private javax.swing.JMenuItem userDetailMenuItem;
+    private javax.swing.JMenuItem userListMenuItem;
     private javax.swing.JMenu userMenu;
     // End of variables declaration//GEN-END:variables
 
@@ -382,6 +415,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
     private String PLAINING = "PLAINING_PANEL";
+    private String USER_LIST = "USER_LIST_PANEL";
+    private String CREATE_NEW_USER = "CREATE_NEW_USER_PANEL";
 
     private java.awt.CardLayout cl;
 
@@ -396,6 +431,8 @@ public class MainJFrame extends javax.swing.JFrame {
     private CustomerListPanel customerListPanel;
     private CreateNewCustomerPanel createNewCustomerPanel;
     private PlainingPanel plainingPanel;
+    private UserListPanel userListPanel;
+    private CreateNewUserPanel createNewUserPanel;
 
     private void initPanels(JPanel mainPanel, CardLayout cl) {
         freelancerListPanel = new FreelancerListPanel(mainPanel, cl);
@@ -409,6 +446,8 @@ public class MainJFrame extends javax.swing.JFrame {
         customerListPanel = new CustomerListPanel(mainPanel, cl);
         createNewCustomerPanel = new CreateNewCustomerPanel();
         plainingPanel = new PlainingPanel(mainPanel, cl);
+        userListPanel = new UserListPanel(mainPanel, cl);
+        createNewUserPanel = new CreateNewUserPanel();
     }
 
     private void setGroupLayout() {
@@ -424,6 +463,8 @@ public class MainJFrame extends javax.swing.JFrame {
         mainPanel.add(customerListPanel, CUSTOMER_LIST);
         mainPanel.add(createNewCustomerPanel, CREATE_NEW_CUSTOMER);
         mainPanel.add(plainingPanel, PLAINING);
+        mainPanel.add(userListPanel, USER_LIST);
+        mainPanel.add(createNewUserPanel, CREATE_NEW_USER);
     }
 
     private void handleLoginInfo() {

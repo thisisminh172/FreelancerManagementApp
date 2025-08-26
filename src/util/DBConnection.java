@@ -6,26 +6,27 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static Connection conn;
+    private static String url = "jdbc:mysql://localhost:3306/freelancermanagementdb";
+    private static String username = "root";
+    private static String password = "admin";
+    private static Connection conn = null;
 
-    public static Connection getConnection() {
+    private DBConnection() {
+    }
+
+    public static Connection getConnection() throws SQLException {
         if (conn == null) {
+
             try {
-                Class.forName("org.sqlite.JDBC");
-                conn = DriverManager.getConnection("jdbc:sqlite:freelance_management.db");
-                System.out.println("Kết nối thành công!");
-            } catch (ClassNotFoundException | SQLException e) {
-                System.out.println("Kết nối thất bại!");
-                e.printStackTrace();
+                conn = DriverManager.getConnection(url, username, password);
+                return conn;
+            } catch (SQLException e) {
+                System.err.println("Error connecting to the database: " + e.getMessage());
+                return null;
+            } finally {
+                conn.close();
             }
-            /*finally {
-                try {
-                    if (conn != null) conn.close();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
-                }
-            }*/
         }
-        return conn;
+        return null;
     }
 }

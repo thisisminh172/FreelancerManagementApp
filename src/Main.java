@@ -1,7 +1,5 @@
 
-import view.FreelancerListFrame;
 import view.LoginJFrame;
-import view.MainJFrame;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

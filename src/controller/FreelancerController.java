@@ -3,63 +3,33 @@ package controller;
 import dao.FreelancerDAO;
 import model.Freelancer;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class FreelancerController {
 
-    private FreelancerDAO dao;
+    private FreelancerDAO freelancerDAO;
 
     public FreelancerController() {
-        dao = new FreelancerDAO();
+        freelancerDAO = new FreelancerDAO();
     }
 
-    public boolean addFreelancer(Freelancer f) {
-//        try {
-//            return dao.insert(f);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-        return false;
+    public int insert(Freelancer f) {
+        return freelancerDAO.insert(f);
     }
 
-    public boolean deleteFreelancer(String maFreelancer) {
-//        try {
-//            return dao.delete(maFreelancer);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-        return false;
+    public int delete(int maFreelancer) {
+        return freelancerDAO.delete(maFreelancer);
     }
 
-    public boolean updateFreelancer(Freelancer f) {
-        try {
-            return dao.update(f);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public int update(Freelancer f) {
+        return freelancerDAO.update(f);
     }
 
-    public List<Freelancer> getAllFreelancers() {
-//        try {
-//            return dao.getAll();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+    public List<Freelancer> getAll() {
+        return freelancerDAO.getAll();
     }
 
     public Freelancer findById(String id) {
-//        try {
-//            return dao.findById(id);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+        return freelancerDAO.findById(id);
     }
 }

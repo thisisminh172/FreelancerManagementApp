@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.awt.CardLayout;
+import javax.swing.JPanel;
+
 /**
  *
  * @author thisi
@@ -13,8 +16,12 @@ public class UserListPanel extends javax.swing.JPanel {
     /**
      * Creates new form UserListPanel
      */
-    public UserListPanel() {
+    private JPanel mainPanel;
+    private CardLayout cl;
+    public UserListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
+        this.mainPanel = mainPanel;
+        this.cl = cl;
     }
 
     /**
@@ -31,7 +38,7 @@ public class UserListPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        addNewSkillButton = new javax.swing.JButton();
+        addNewUserButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -46,6 +53,8 @@ public class UserListPanel extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField11 = new javax.swing.JTextField();
 
         jLabel1.setText("DANH SÁCH NGƯỜI DÙNG");
 
@@ -89,10 +98,10 @@ public class UserListPanel extends javax.swing.JPanel {
         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 204));
         jScrollPane1.setViewportView(jTable1);
 
-        addNewSkillButton.setText("➕ Thêm mới");
-        addNewSkillButton.addActionListener(new java.awt.event.ActionListener() {
+        addNewUserButton.setText("➕ Thêm mới");
+        addNewUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNewSkillButtonActionPerformed(evt);
+                addNewUserButtonActionPerformed(evt);
             }
         });
 
@@ -101,9 +110,9 @@ public class UserListPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addNewSkillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(addNewUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,7 +120,7 @@ public class UserListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(addNewSkillButton))
+                    .addComponent(addNewUserButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
         );
@@ -122,7 +131,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Mã");
 
-        jLabel11.setText("Tên kỹ năng");
+        jLabel11.setText("Họ tên");
 
         updateButton.setText("Cập nhật");
 
@@ -136,11 +145,13 @@ public class UserListPanel extends javax.swing.JPanel {
         jTextField6.setEditable(false);
         jTextField6.setText("F000001");
 
-        jLabel12.setText("Tên kỹ năng");
+        jLabel12.setText("Email");
 
-        jLabel13.setText("Tên kỹ năng");
+        jLabel13.setText("username");
 
-        jLabel15.setText("Tên kỹ năng");
+        jLabel15.setText("password");
+
+        jLabel16.setText("Quyền hạn");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,7 +188,11 @@ public class UserListPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(10, 10, 10)
-                        .addComponent(jTextField7)))
+                        .addComponent(jTextField7))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextField11)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -204,6 +219,10 @@ public class UserListPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
@@ -239,11 +258,11 @@ public class UserListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addNewSkillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewSkillButtonActionPerformed
+    private void addNewUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewUserButtonActionPerformed
         // TODO add your handling code here:
         System.out.println("Thêm kỹ năng mới mới");
-        cl.show(mainPanel, CREATE_NEW_SKILL);
-    }//GEN-LAST:event_addNewSkillButtonActionPerformed
+        cl.show(mainPanel, CREATE_NEW_USER);
+    }//GEN-LAST:event_addNewUserButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
@@ -251,12 +270,13 @@ public class UserListPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNewSkillButton;
+    private javax.swing.JButton addNewUserButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -265,6 +285,7 @@ public class UserListPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -272,4 +293,6 @@ public class UserListPanel extends javax.swing.JPanel {
     private javax.swing.JButton resetButton;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
+    private String USER_LIST = "USER_LIST_PANEL";
+    private String CREATE_NEW_USER = "CREATE_NEW_USER_PANEL";
 }

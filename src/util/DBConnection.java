@@ -16,17 +16,13 @@ public class DBConnection {
 
     public static Connection getConnection() throws SQLException {
         if (conn == null) {
-
             try {
                 conn = DriverManager.getConnection(url, username, password);
-                return conn;
             } catch (SQLException e) {
                 System.err.println("Error connecting to the database: " + e.getMessage());
-                return null;
-            } finally {
                 conn.close();
             }
         }
-        return null;
+        return conn;
     }
 }

@@ -22,6 +22,8 @@ public class CustomerListPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        
+        fetchCustomerTable();
     }
 
     /**
@@ -69,4 +71,8 @@ public class CustomerListPanel extends javax.swing.JPanel {
     private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
+
+    private void fetchCustomerTable() {
+        
+    }
 }

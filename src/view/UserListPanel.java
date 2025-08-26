@@ -22,6 +22,8 @@ public class UserListPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        
+        fetchUserTable();
     }
 
     /**
@@ -295,4 +297,8 @@ public class UserListPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
     private String USER_LIST = "USER_LIST_PANEL";
     private String CREATE_NEW_USER = "CREATE_NEW_USER_PANEL";
+
+    private void fetchUserTable() {
+        
+    }
 }

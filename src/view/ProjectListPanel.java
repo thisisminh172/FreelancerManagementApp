@@ -23,6 +23,8 @@ public class ProjectListPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        
+        fetchProjectTable();
     }
 
     /**
@@ -354,4 +356,8 @@ public class ProjectListPanel extends javax.swing.JPanel {
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
     private String PLAINING = "PLAINING_PANEL";
+
+    private void fetchProjectTable() {
+        
+    }
 }

@@ -223,8 +223,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             new MainJFrame().setVisible(true);
             dispose();
         } catch (Exception ex) {
-//            JOptionPane.showMessageDialog(this, "Tên đăng nhập hoặc mật khẩu không hợp lệ!", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("ex:" + ex.getMessage());
+            System.out.println("ẽ:"+ ex.getMessage());
         } finally {
             passwordField.setText("");
         }

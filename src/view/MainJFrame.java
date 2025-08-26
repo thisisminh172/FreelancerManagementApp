@@ -34,6 +34,7 @@ public class MainJFrame extends javax.swing.JFrame {
         cl = (java.awt.CardLayout) mainPanel.getLayout();
         initPanels(mainPanel, cl);
         setGroupLayout();
+        
         cl.show(mainPanel, FREELANCER_LIST); // default panel
     }
 

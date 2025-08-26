@@ -27,7 +27,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
-        
+        fetchFreelancerTable();
         formReady();
     }
 
@@ -444,5 +444,9 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         gioitinhButtonGroup.add(nuRadio);
         trangthaiButtonGroup.add(sansangRadio);
         trangthaiButtonGroup.add(banRadio);
+    }
+
+    private void fetchFreelancerTable() {
+        
     }
 }

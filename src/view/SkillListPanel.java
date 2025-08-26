@@ -4,8 +4,14 @@
  */
 package view;
 
+import controller.KyNangController;
 import java.awt.CardLayout;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.KyNang;
 
 /**
  *
@@ -18,10 +24,16 @@ public class SkillListPanel extends javax.swing.JPanel {
      */
     private JPanel mainPanel;
     private CardLayout cl;
+    private KyNangController kyNangController;
+
     public SkillListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        kyNangController = new KyNangController();
+
+        fetchSkillTable();
+        formReady(0);
     }
 
     /**
@@ -37,19 +49,19 @@ public class SkillListPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        kyNangTable = new javax.swing.JTable();
         addNewSkillButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        tenInput = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         updateButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField6 = new javax.swing.JTextField();
+        motaInput = new javax.swing.JTextArea();
+        idInput = new javax.swing.JTextField();
 
         jLabel9.setText("DANH SÁCH KỸ NĂNG");
 
@@ -57,7 +69,7 @@ public class SkillListPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Danh sách");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        kyNangTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -90,8 +102,13 @@ public class SkillListPanel extends javax.swing.JPanel {
                 "Mã kỹ năng", "Tên kỹ năng", "Mô tả"
             }
         ));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 204));
-        jScrollPane1.setViewportView(jTable1);
+        kyNangTable.setSelectionBackground(new java.awt.Color(255, 255, 204));
+        kyNangTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kyNangTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(kyNangTable);
 
         addNewSkillButton.setText("➕ Thêm mới");
         addNewSkillButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,12 +156,11 @@ public class SkillListPanel extends javax.swing.JPanel {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        motaInput.setColumns(20);
+        motaInput.setRows(5);
+        jScrollPane2.setViewportView(motaInput);
 
-        jTextField6.setEditable(false);
-        jTextField6.setText("F000001");
+        idInput.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,14 +175,14 @@ public class SkillListPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                        .addComponent(idInput, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField5)
+                            .addComponent(tenInput)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -183,11 +199,11 @@ public class SkillListPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
@@ -236,9 +252,21 @@ public class SkillListPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_resetButtonActionPerformed
 
+    private void kyNangTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kyNangTableMouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        int col = 0; // id column
+        String s = source.getModel().getValueAt(row, col) + "";
+
+        
+        formReady(Integer.valueOf(s));
+    }//GEN-LAST:event_kyNangTableMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewSkillButton;
+    private javax.swing.JTextField idInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -249,22 +277,42 @@ public class SkillListPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTable kyNangTable;
+    private javax.swing.JTextArea motaInput;
     private javax.swing.JButton resetButton;
+    private javax.swing.JTextField tenInput;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
-    private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
-    private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
-    private String PROJECT_LIST = "PROJECT_LIST_PANEL";
-    private String CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT_PANEL";
-    private String SKILL_LIST = "SKILL_LIST_PANEL";
+    
     private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
-    private String USER_DETAIL = "USER_DETAIL_PANEL";
-    private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
-    private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
-    private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
+    
+
+    private void fetchSkillTable() {
+        List<KyNang> dsKyNang = kyNangController.getAll();
+        DefaultTableModel model = (DefaultTableModel) kyNangTable.getModel();
+
+        model.setRowCount(0);
+        for (KyNang kn : dsKyNang) {
+            Object[] row = {
+                kn.getId(),
+                kn.getTen(),
+                kn.getMota()
+            };
+            model.addRow(row);
+        }
+    }
+
+    private void formReady(int id) {
+        if (id==0) {
+            idInput.setText("");
+            tenInput.setText("");
+            motaInput.setText("");
+        } else {
+            KyNang kn = kyNangController.findById(id);
+            idInput.setText(String.valueOf(kn.getId()));
+            tenInput.setText(kn.getTen());
+            motaInput.setText(kn.getMota());
+        }
+    }
 
 }

@@ -17,7 +17,9 @@ import util.DBConnection;
  * @author thisi
  */
 public class KyNangDAO {
-private Connection conn;
+
+    private Connection conn;
+
     public KyNangDAO() {
         try {
             conn = DBConnection.getConnection();
@@ -25,7 +27,7 @@ private Connection conn;
             Logger.getLogger(KyNangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public List<KyNang> getAll() {
         List<KyNang> list = new ArrayList<>();
         String sql = "SELECT * FROM ky_nang";
@@ -39,7 +41,7 @@ private Connection conn;
                 list.add(kn);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(KyNangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("Error retrieving ky nang: " + ex.getMessage());
         }
         return list;
     }

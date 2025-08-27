@@ -5,6 +5,7 @@
 package view;
 
 import controller.KyNangController;
+import javax.swing.JOptionPane;
 import model.KyNang;
 
 /**

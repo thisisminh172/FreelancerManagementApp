@@ -263,6 +263,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("danh sách freelancers");
         cl.show(mainPanel, FREELANCER_LIST);
+        freelancerListPanel.reloadTable();
     }//GEN-LAST:event_freelancerListMenuItemActionPerformed
 
     private void createNewFreelancerMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewFreelancerMenuItemActionPerformed
@@ -281,6 +282,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("danh sách kỹ năng");
         cl.show(mainPanel, SKILL_LIST);
+        skillListPanel.reloadTable();
     }//GEN-LAST:event_skillListMenuItemActionPerformed
 
     private void userDetailMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDetailMenuItemActionPerformed
@@ -310,6 +312,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("Danh sách dự án");
         cl.show(mainPanel, PROJECT_LIST);
+//        projectListPanel.reloadTable();
     }//GEN-LAST:event_projectListMenuItemActionPerformed
 
     private void projectMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectMenuActionPerformed
@@ -326,6 +329,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void CustomerListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerListMenuItemActionPerformed
         // TODO add your handling code here:
         cl.show(mainPanel, CUSTOMER_LIST);
+//        customerListPanel.reloadTable();
     }//GEN-LAST:event_CustomerListMenuItemActionPerformed
 
     private void plainingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plainingMenuItemActionPerformed
@@ -336,6 +340,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void userListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userListMenuItemActionPerformed
         // TODO add your handling code here:
         cl.show(mainPanel, USER_LIST);
+//        userListPanel.reloadTable();
     }//GEN-LAST:event_userListMenuItemActionPerformed
 
     private void createNewUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewUserMenuItemActionPerformed

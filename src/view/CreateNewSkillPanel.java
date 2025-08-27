@@ -4,6 +4,9 @@
  */
 package view;
 
+import controller.KyNangController;
+import model.KyNang;
+
 /**
  *
  * @author thisi
@@ -13,8 +16,11 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateNewSkillPanel
      */
+    KyNangController kyNangController;
     public CreateNewSkillPanel() {
         initComponents();
+        
+        kyNangController = new KyNangController();
     }
 
     /**
@@ -43,17 +49,43 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
         jLabel2.setText("Mô tả");
 
         tenInput.setForeground(new java.awt.Color(153, 153, 153));
-        tenInput.setText("Tên kỹ năng...");
+        tenInput.setText("Nhập kỹ năng...");
+        tenInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tenInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tenInputFocusLost(evt);
+            }
+        });
 
         addButton.setText("Thêm mới");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         motaInput.setColumns(20);
         motaInput.setForeground(new java.awt.Color(153, 153, 153));
         motaInput.setRows(5);
         motaInput.setText("Nhập mô tả...");
+        motaInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                motaInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                motaInputFocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(motaInput);
 
         resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -119,6 +151,54 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
                 .addContainerGap(244, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        String ten = tenInput.getText();
+        String mota = motaInput.getText();
+        
+        KyNang kn = new KyNang(ten, mota);
+        int num = kyNangController.insert(kn);
+        
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // TODO add your handling code here:
+        tenInput.setText("");
+        motaInput.setText("");
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void tenInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tenInputFocusGained
+        // TODO add your handling code here:
+        if (tenInput.getText().equals("Nhập kỹ năng...")) {
+            tenInput.setText("");
+            tenInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_tenInputFocusGained
+
+    private void tenInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tenInputFocusLost
+        // TODO add your handling code here:
+        if (tenInput.getText().isEmpty()) {
+            tenInput.setText("Nhập kỹ năng...");
+            tenInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_tenInputFocusLost
+
+    private void motaInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_motaInputFocusGained
+        // TODO add your handling code here:
+        if (motaInput.getText().equals("Nhập mô tả...")) {
+            motaInput.setText("");
+            motaInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_motaInputFocusGained
+
+    private void motaInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_motaInputFocusLost
+        // TODO add your handling code here:
+        if (motaInput.getText().isEmpty()) {
+            motaInput.setText("Nhập mô tả...");
+            motaInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_motaInputFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

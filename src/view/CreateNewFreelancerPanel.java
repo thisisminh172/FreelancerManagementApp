@@ -4,12 +4,21 @@
  */
 package view;
 
+import controller.FreelancerController;
 import controller.KyNangController;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import model.Freelancer;
+import model.KyNang;
 
 /**
  *
@@ -20,11 +29,15 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
     /**
      * Creates new form createNewFreelancerPanel
      */
+    private FreelancerController freelancerController;
+    private KyNangController kyNangController;
+
     public CreateNewFreelancerPanel() {
         initComponents();
+        freelancerController = new FreelancerController();
         kyNangController = new KyNangController();
         formReady();
-        
+
     }
 
     /**
@@ -37,7 +50,6 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         gioitinhButtonGroup = new javax.swing.ButtonGroup();
-        trangthaiButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,17 +60,14 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
         hotenInput = new javax.swing.JTextField();
         emailInput = new javax.swing.JTextField();
         phoneInput = new javax.swing.JTextField();
-        dobInput = new javax.swing.JTextField();
         diachiInput = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        sansangRadio = new javax.swing.JRadioButton();
-        banRadio = new javax.swing.JRadioButton();
+        addNewButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
         namRadio = new javax.swing.JRadioButton();
         nuRadio = new javax.swing.JRadioButton();
         KyNangScrollPane = new javax.swing.JScrollPane();
+        ngaysinhSpinner = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -77,30 +86,63 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
 
         hotenInput.setForeground(new java.awt.Color(153, 153, 153));
         hotenInput.setText("Nhập họ tên...");
+        hotenInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                hotenInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                hotenInputFocusLost(evt);
+            }
+        });
 
         emailInput.setForeground(new java.awt.Color(153, 153, 153));
         emailInput.setText("Nhập email...");
+        emailInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailInputFocusLost(evt);
+            }
+        });
 
         phoneInput.setForeground(new java.awt.Color(153, 153, 153));
         phoneInput.setText("Nhập số điện thoại...");
-
-        dobInput.setForeground(new java.awt.Color(153, 153, 153));
-        dobInput.setText("Nhập ngày sinh...");
+        phoneInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                phoneInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                phoneInputFocusLost(evt);
+            }
+        });
 
         diachiInput.setForeground(new java.awt.Color(153, 153, 153));
         diachiInput.setText("Nhập địa chỉ...");
+        diachiInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                diachiInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                diachiInputFocusLost(evt);
+            }
+        });
 
-        jLabel7.setText("Mô tả");
+        jLabel7.setText("Kỹ năng");
 
-        jButton1.setText("Thêm mới");
+        addNewButton.setText("Thêm mới");
+        addNewButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNewButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Xóa");
-
-        jLabel8.setText("Trạng thái");
-
-        sansangRadio.setText("Sẵn sàng");
-
-        banRadio.setText("Bận");
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
 
         namRadio.setText("Nam");
         namRadio.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +154,8 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
         nuRadio.setText("Nữ");
 
         KyNangScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        ngaysinhSpinner.setModel(new javax.swing.SpinnerDateModel());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,18 +170,16 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
                         .addComponent(namRadio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nuRadio)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(addNewButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8))))
-                        .addGap(527, 527, 527))
+                                .addComponent(resetButton)))
+                        .addGap(18, 18, 18)
+                        .addComponent(KyNangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -149,26 +191,19 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel5))
                                 .addGap(18, 18, 18)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(phoneInput, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(diachiInput, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(136, 136, 136)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(sansangRadio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(banRadio))
-                            .addComponent(KyNangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(phoneInput, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(emailInput, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(diachiInput, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(hotenInput, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(ngaysinhSpinner))
+                        .addGap(54, 54, 54))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,26 +219,23 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addComponent(KyNangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                            .addComponent(jLabel4)
+                            .addComponent(ngaysinhSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(diachiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nuRadio)
+                            .addComponent(jLabel6)
+                            .addComponent(namRadio)))
+                    .addComponent(KyNangScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(diachiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8)
-                    .addComponent(sansangRadio)
-                    .addComponent(banRadio))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nuRadio)
-                    .addComponent(jLabel6)
-                    .addComponent(namRadio))
-                .addGap(73, 73, 73)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(113, Short.MAX_VALUE))
+                    .addComponent(addNewButton)
+                    .addComponent(resetButton))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jLabel9.setText("THÊM FREELANCER");
@@ -216,7 +248,7 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(347, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -234,17 +266,149 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_namRadioActionPerformed
 
+    private void hotenInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotenInputFocusGained
+        // TODO add your handling code here:
+        if (hotenInput.getText().equals("Nhập họ tên...")) {
+            hotenInput.setText("");
+            hotenInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_hotenInputFocusGained
+
+    private void hotenInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotenInputFocusLost
+        // TODO add your handling code here:
+        if (hotenInput.getText().isEmpty()) {
+            hotenInput.setText("Nhập họ tên...");
+            hotenInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_hotenInputFocusLost
+
+    private void emailInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusGained
+        // TODO add your handling code here:
+        if (emailInput.getText().equals("Nhập email...")) {
+            emailInput.setText("");
+            emailInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_emailInputFocusGained
+
+    private void emailInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusLost
+        // TODO add your handling code here:
+        if (emailInput.getText().isEmpty()) {
+            emailInput.setText("Nhập email...");
+            emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_emailInputFocusLost
+
+    private void phoneInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneInputFocusGained
+        // TODO add your handling code here:
+        if (phoneInput.getText().equals("Nhập số điện thoại...")) {
+            phoneInput.setText("");
+            phoneInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_phoneInputFocusGained
+
+    private void phoneInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneInputFocusLost
+        // TODO add your handling code here:
+        if (phoneInput.getText().isEmpty()) {
+            phoneInput.setText("Nhập số điện thoại...");
+            phoneInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_phoneInputFocusLost
+
+    private void diachiInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diachiInputFocusGained
+        // TODO add your handling code here:
+        if (diachiInput.getText().equals("Nhập địa chỉ...")) {
+            diachiInput.setText("");
+            diachiInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_diachiInputFocusGained
+
+    private void diachiInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_diachiInputFocusLost
+        // TODO add your handling code here:
+        if (diachiInput.getText().isEmpty()) {
+            diachiInput.setText("Nhập địa chỉ...");
+            diachiInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_diachiInputFocusLost
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // TODO add your handling code here:
+        hotenInput.setText("Nhập họ tên...");
+        hotenInput.setForeground(new java.awt.Color(153, 153, 153));
+        emailInput.setText("Nhập email...");
+        emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        phoneInput.setText("Nhập số điện thoại...");
+        phoneInput.setForeground(new java.awt.Color(153, 153, 153));
+        diachiInput.setText("Nhập địa chỉ...");
+        diachiInput.setForeground(new java.awt.Color(153, 153, 153));
+        gioitinhButtonGroup.clearSelection();
+        for (JCheckBox cb : checkBoxes.values()) {
+            cb.setSelected(false);
+        }
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
+        // TODO add your handling code here:
+        String hoTen = hotenInput.getText();
+        if (hoTen.isEmpty() || hoTen.equals("Nhập họ tên...")) {
+            JOptionPane.showMessageDialog(this, "Họ tên không được để trống!");
+            return;
+        }
+        String email = emailInput.getText();
+        if (email.isEmpty() || email.equals("Nhập email...")) {
+            JOptionPane.showMessageDialog(this, "Email không được để trống!");
+            return;
+        }
+        String soDienThoai = phoneInput.getText();
+        if (soDienThoai.isEmpty() || soDienThoai.equals("Nhập số điện thoại...")) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống!");
+            return;
+        }
+        String diaChi = diachiInput.getText();
+        if (diaChi.isEmpty() || diaChi.equals("Nhập địa chỉ...")) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống!");
+            return;
+        }
+        String gioiTinh = namRadio.isSelected() ? "Nam" : "Nữ";
+        if (!namRadio.isSelected() && !nuRadio.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Giới tính không được để trống!");
+            return;
+        }
+        Date dob = (Date) ngaysinhSpinner.getValue();
+        LocalDate ngaySinh = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        // Validate and create Freelancer object
+        Freelancer freelancer = new Freelancer();
+        freelancer.setHoTen(hoTen);
+        freelancer.setEmail(email);
+        freelancer.setSoDienThoai(soDienThoai);
+        freelancer.setDiaChi(diaChi);
+        freelancer.setGioiTinh(gioiTinh);
+        freelancer.setNgaySinh(ngaySinh);
+
+        // Call controller to add freelancer
+        int num = freelancerController.insert(freelancer);
+        if (num > 0) {
+            // Get selected skills
+            for (Map.Entry<Integer, JCheckBox> entry : checkBoxes.entrySet()) {
+                Integer key = entry.getKey();
+                JCheckBox cb = entry.getValue();
+                if (cb.isSelected()) {
+                    freelancerController.insertFreelancerKyNang(freelancer.getId(), key);
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Thêm mới thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm mới thất bại!");
+        }
+    }//GEN-LAST:event_addNewButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane KyNangScrollPane;
-    private javax.swing.JRadioButton banRadio;
+    private javax.swing.JButton addNewButton;
     private javax.swing.JTextField diachiInput;
-    private javax.swing.JTextField dobInput;
     private javax.swing.JTextField emailInput;
     private javax.swing.ButtonGroup gioitinhButtonGroup;
     private javax.swing.JTextField hotenInput;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -252,25 +416,24 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton namRadio;
+    private javax.swing.JSpinner ngaysinhSpinner;
     private javax.swing.JRadioButton nuRadio;
     private javax.swing.JTextField phoneInput;
-    private javax.swing.JRadioButton sansangRadio;
-    private javax.swing.ButtonGroup trangthaiButtonGroup;
+    private javax.swing.JButton resetButton;
     // End of variables declaration//GEN-END:variables
-    private final Map<String, JCheckBox> checkBoxes = new LinkedHashMap<>();
-    private KyNangController kyNangController;
+    private final Map<Integer, JCheckBox> checkBoxes = new LinkedHashMap<>();
 
     private void addSkillsToScrollPane() {
+
         JPanel skillsPanel = new JPanel();
         skillsPanel.setLayout(new BoxLayout(skillsPanel, BoxLayout.Y_AXIS));
-        String[] dsKyNang = kyNangController.getKyNang();
-        for (String kyNang : dsKyNang) {
-            JCheckBox cb = new JCheckBox(kyNang);
-            checkBoxes.put(kyNang, cb);
+        List<KyNang> dsKyNang = kyNangController.getAll();
+        for (KyNang kyNang : dsKyNang) {
+            JCheckBox cb = new JCheckBox(kyNang.getTen());
+            checkBoxes.put(kyNang.getId(), cb);
             skillsPanel.add(cb);
         }
         KyNangScrollPane.setViewportView(skillsPanel);
@@ -279,11 +442,13 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
     private void formReady() {
         addSkillsToScrollPane();
         
+        // format spinner
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(ngaysinhSpinner, "yyyy-MM-dd");
+        ngaysinhSpinner.setEditor(editor);
+
         // group button
         gioitinhButtonGroup.add(namRadio);
         gioitinhButtonGroup.add(nuRadio);
-        trangthaiButtonGroup.add(sansangRadio);
-        trangthaiButtonGroup.add(banRadio);
     }
 
 }

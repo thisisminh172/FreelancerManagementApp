@@ -4,6 +4,8 @@ import dao.FreelancerDAO;
 import model.Freelancer;
 
 import java.util.List;
+import java.util.Map;
+import model.KyNang;
 
 public class FreelancerController {
 
@@ -25,11 +27,23 @@ public class FreelancerController {
         return freelancerDAO.update(f);
     }
 
-    public List<Freelancer> getAll() {
+    public List<Map<String, Object>> getAll() {
         return freelancerDAO.getAll();
     }
 
     public Freelancer findById(String id) {
         return freelancerDAO.findById(id);
+    }
+    
+    public List<KyNang> getFreelancerKyNangById(int id) {
+        return freelancerDAO.getFreelancerKyNangById(id);
+    }
+
+    public int deleteAllFreelancerKyNangById(int id) {
+        return freelancerDAO.deleteAllFreelancerKyNangById(id);
+    }
+
+    public int insertFreelancerKyNang(int id, int kyNangId) {
+        return freelancerDAO.insertFreelancerKyNang(id, kyNangId);
     }
 }

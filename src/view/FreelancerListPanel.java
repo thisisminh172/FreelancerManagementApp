@@ -4,13 +4,24 @@
  */
 package view;
 
+import controller.FreelancerController;
 import controller.KyNangController;
 import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Freelancer;
+import model.KyNang;
 
 /**
  *
@@ -23,12 +34,17 @@ public class FreelancerListPanel extends javax.swing.JPanel {
      */
     private JPanel mainPanel;
     private CardLayout cl;
+    private FreelancerController freelancerController;
+    private KyNangController kyNangController;
+
     public FreelancerListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        freelancerController = new FreelancerController();
+        kyNangController = new KyNangController();
         fetchFreelancerTable();
-        formReady();
+        formReady(0);
     }
 
     /**
@@ -41,11 +57,10 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         gioitinhButtonGroup = new javax.swing.ButtonGroup();
-        trangthaiButtonGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        freelancerTable = new javax.swing.JTable();
         addNewFreelancerButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -54,23 +69,20 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         hotenInput = new javax.swing.JTextField();
         emailInput = new javax.swing.JTextField();
         sodienthoaiInput = new javax.swing.JTextField();
-        dobInput = new javax.swing.JTextField();
         diachiInput = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        namRadio = new javax.swing.JRadioButton();
-        nuRadio = new javax.swing.JRadioButton();
         updateButton = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        sansangRadio = new javax.swing.JRadioButton();
-        banRadio = new javax.swing.JRadioButton();
-        resetButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         idInput = new javax.swing.JTextField();
         kynangScrollPane = new javax.swing.JScrollPane();
+        dobSpinner = new javax.swing.JSpinner();
+        jLabel12 = new javax.swing.JLabel();
+        nuRadio = new javax.swing.JRadioButton();
+        namRadio = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(790, 500));
@@ -79,41 +91,63 @@ public class FreelancerListPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Danh sách");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        freelancerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã freelancer", "Họ tên", "Email", "Số điện thoại", "Trạng thái"
+                "ID", "Họ tên", "Email", "Số điện thoại", "Kỹ năng", "Trạng thái"
             }
-        ));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 204));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        freelancerTable.setSelectionBackground(new java.awt.Color(255, 255, 204));
+        freelancerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                freelancerTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(freelancerTable);
+        if (freelancerTable.getColumnModel().getColumnCount() > 0) {
+            freelancerTable.getColumnModel().getColumn(0).setResizable(false);
+            freelancerTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            freelancerTable.getColumnModel().getColumn(1).setResizable(false);
+            freelancerTable.getColumnModel().getColumn(2).setResizable(false);
+            freelancerTable.getColumnModel().getColumn(3).setResizable(false);
+            freelancerTable.getColumnModel().getColumn(4).setResizable(false);
+            freelancerTable.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         addNewFreelancerButton.setText("➕ Thêm mới");
         addNewFreelancerButton.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +180,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Thông tin chi tiết");
 
-        jLabel4.setText("Mã freelancer");
+        jLabel4.setText("ID");
 
         jLabel5.setText("Họ tên");
 
@@ -156,53 +190,34 @@ public class FreelancerListPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Số điện thoại");
 
-        jLabel9.setText("Giới tính");
-
         jLabel10.setText("Địa chỉ");
 
         jLabel11.setText("Kỹ năng");
 
-        namRadio.setText("Nam");
-        namRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                namRadioActionPerformed(evt);
-            }
-        });
-
-        nuRadio.setText("Nữ");
-        nuRadio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nuRadioActionPerformed(evt);
-            }
-        });
-
         updateButton.setText("Cập nhật");
-
-        jLabel12.setText("Trạng thái");
-
-        sansangRadio.setText("Sẵng sàng");
-        sansangRadio.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sansangRadioActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        banRadio.setText("Bận");
-        banRadio.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setBackground(new java.awt.Color(255, 102, 102));
+        deleteButton.setText("Xóa");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                banRadioActionPerformed(evt);
-            }
-        });
-
-        resetButton.setText("Reset");
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
         idInput.setEditable(false);
-        idInput.setText("F000001");
+
+        dobSpinner.setModel(new javax.swing.SpinnerDateModel());
+
+        jLabel12.setText("Địa chỉ");
+
+        nuRadio.setText("Nữ");
+
+        namRadio.setText("Nam");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -215,107 +230,93 @@ public class FreelancerListPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(52, 52, 52)
                         .addComponent(updateButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(resetButton)
-                        .addContainerGap(81, Short.MAX_VALUE))
+                        .addComponent(deleteButton)
+                        .addContainerGap(41, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(hotenInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
                                 .addComponent(emailInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(18, 18, 18)
-                                .addComponent(diachiInput))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dobInput))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(sodienthoaiInput))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(idInput))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idInput)
+                                    .addComponent(hotenInput)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(dobSpinner))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(namRadio)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nuRadio))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(sansangRadio)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(banRadio)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(kynangScrollPane)))
-                        .addContainerGap())))
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(kynangScrollPane)
+                                    .addComponent(diachiInput))))
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(namRadio)
+                        .addGap(18, 18, 18)
+                        .addComponent(nuRadio)
+                        .addGap(70, 70, 70))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(sodienthoaiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(dobInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(dobSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(nuRadio)
+                    .addComponent(namRadio))
+                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(diachiInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(namRadio)
-                    .addComponent(nuRadio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addGap(94, 94, 94))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(kynangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(sansangRadio)
-                    .addComponent(banRadio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kynangScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
-                    .addComponent(resetButton))
+                    .addComponent(deleteButton))
                 .addGap(34, 34, 34))
         );
 
@@ -329,7 +330,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 778, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,25 +350,26 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void namRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namRadioActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_namRadioActionPerformed
+        int result = JOptionPane.showConfirmDialog(
+                this, // parent component
+                "Bạn có chắc chắn muốn xóa?", // message
+                "Xác nhận", // title
+                JOptionPane.YES_NO_OPTION
+        );
 
-    private void nuRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuRadioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nuRadioActionPerformed
-
-    private void sansangRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sansangRadioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sansangRadioActionPerformed
-
-    private void banRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_banRadioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_banRadioActionPerformed
-
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resetButtonActionPerformed
+        if (result == JOptionPane.YES_OPTION) {
+            String id = idInput.getText();
+            if (!id.equals("")) {
+                int num = freelancerController.delete(Integer.valueOf(id));
+                if (num != 0) {
+                    fetchFreelancerTable();
+                    clearForm();
+                }
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void addNewFreelancerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewFreelancerButtonActionPerformed
         // TODO add your handling code here:
@@ -375,13 +377,66 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         cl.show(mainPanel, CREATE_NEW_FREELANCER);
     }//GEN-LAST:event_addNewFreelancerButtonActionPerformed
 
+    private void freelancerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_freelancerTableMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        int col = 0; // id column
+        String s = source.getModel().getValueAt(row, col) + "";
+
+        formReady(Integer.valueOf(s));
+    }//GEN-LAST:event_freelancerTableMouseClicked
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        String id = idInput.getText();
+        String hoTen = hotenInput.getText();
+        String email = emailInput.getText();
+        String soDienThoai = sodienthoaiInput.getText();
+        Date dob = (Date) dobSpinner.getValue();
+        LocalDate ngaySinh = dob.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        String diaChi = diachiInput.getText();
+        String gioiTinh = namRadio.isSelected() ? "Nam" : "Nữ";
+        if (hoTen.equals("") || email.equals("") || soDienThoai.equals("") || diaChi.equals("")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+        Freelancer f = new Freelancer();
+        f.setId(Integer.valueOf(id));
+        f.setHoTen(hoTen);
+        f.setEmail(email);
+        f.setSoDienThoai(soDienThoai);
+        f.setNgaySinh(ngaySinh);
+        f.setDiaChi(diaChi);
+        f.setGioiTinh(gioiTinh);
+        int num = freelancerController.update(f);
+        if (num != 0) {
+            // update skills
+            freelancerController.deleteAllFreelancerKyNangById(f.getId());
+            for (Map.Entry<Integer, JCheckBox> entry : checkBoxes.entrySet()) {
+                Integer key = entry.getKey();
+                JCheckBox cb = entry.getValue();
+                if (cb.isSelected()) {
+                    freelancerController.insertFreelancerKyNang(f.getId(), key);
+                }
+
+            }
+            fetchFreelancerTable();
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Cập nhật thất bại!");
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewFreelancerButton;
-    private javax.swing.JRadioButton banRadio;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTextField diachiInput;
-    private javax.swing.JTextField dobInput;
+    private javax.swing.JSpinner dobSpinner;
     private javax.swing.JTextField emailInput;
+    private javax.swing.JTable freelancerTable;
     private javax.swing.ButtonGroup gioitinhButtonGroup;
     private javax.swing.JTextField hotenInput;
     private javax.swing.JTextField idInput;
@@ -396,18 +451,13 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane kynangScrollPane;
     private javax.swing.JRadioButton namRadio;
     private javax.swing.JRadioButton nuRadio;
-    private javax.swing.JButton resetButton;
-    private javax.swing.JRadioButton sansangRadio;
     private javax.swing.JTextField sodienthoaiInput;
-    private javax.swing.ButtonGroup trangthaiButtonGroup;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
     private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
@@ -420,33 +470,109 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
     private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
     private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
-    private final Map<String, JCheckBox> checkBoxes = new LinkedHashMap<>();
-    private KyNangController kyNangController;
-    
+    private final Map<Integer, JCheckBox> checkBoxes = new LinkedHashMap<>();
+
     private void addSkillsToScrollPane() {
-        
+
         JPanel skillsPanel = new JPanel();
         skillsPanel.setLayout(new BoxLayout(skillsPanel, BoxLayout.Y_AXIS));
-        String[] dsKyNang = kyNangController.getKyNang();
-        for (String kyNang : dsKyNang) {
-            JCheckBox cb = new JCheckBox(kyNang);
-            checkBoxes.put(kyNang, cb);
+        List<KyNang> dsKyNang = kyNangController.getAll();
+        for (KyNang kyNang : dsKyNang) {
+            JCheckBox cb = new JCheckBox(kyNang.getTen());
+            checkBoxes.put(kyNang.getId(), cb);
             skillsPanel.add(cb);
         }
         kynangScrollPane.setViewportView(skillsPanel);
     }
-    
-    private void formReady() {
-        kyNangController = new KyNangController();
+
+    private void formReady(int id) {
+
         addSkillsToScrollPane();
-        // group button
+
         gioitinhButtonGroup.add(namRadio);
         gioitinhButtonGroup.add(nuRadio);
-        trangthaiButtonGroup.add(sansangRadio);
-        trangthaiButtonGroup.add(banRadio);
+
+        // format spinner
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(dobSpinner, "yyyy-MM-dd");
+        dobSpinner.setEditor(editor);
+
+        fetchFormData(id);
+    }
+
+    public void reloadTable() {
+        fetchFreelancerTable();
     }
 
     private void fetchFreelancerTable() {
-        
+        List<Map<String, Object>> list = freelancerController.getAll();
+        DefaultTableModel model = (DefaultTableModel) freelancerTable.getModel();
+        model.setRowCount(0); // Xóa dữ liệu hiện tại trong bảng
+        for (Map<String, Object> f : list) {
+            Object[] row = new Object[]{
+                f.get("id"),
+                f.get("ho_ten"),
+                f.get("email"),
+                f.get("so_dien_thoai"),
+                f.get("dskynang"),
+                f.get("trangthai")
+            };
+            model.addRow(row);
+        }
+    }
+
+    private void fetchFormData(int id) {
+        Freelancer f;
+        List<KyNang> freelancerKyNang;
+        if (id != 0) {
+            f = freelancerController.findById(String.valueOf(id));
+            freelancerKyNang = freelancerController.getFreelancerKyNangById(id);
+
+        } else {
+            int firstRowId = (int) freelancerTable.getValueAt(0, 0);
+            f = freelancerController.findById(String.valueOf(firstRowId));
+            freelancerKyNang = freelancerController.getFreelancerKyNangById(firstRowId);
+        }
+
+        idInput.setText(String.valueOf(f.getId()));
+        hotenInput.setText(f.getHoTen());
+        emailInput.setText(f.getEmail());
+        sodienthoaiInput.setText(f.getSoDienThoai());
+
+        LocalDate localDate = f.getNgaySinh();
+        if (localDate != null) {
+            Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            dobSpinner.setValue(date);
+        }
+
+        diachiInput.setText(f.getDiaChi());
+
+        if (f.getGioiTinh().equals("Nam")) {
+            namRadio.setSelected(true);
+            nuRadio.setSelected(false);
+        } else {
+            nuRadio.setSelected(true);
+            namRadio.setSelected(false);
+        }
+
+        for (KyNang kn : freelancerKyNang) {
+            JCheckBox cb = checkBoxes.get(kn.getId());
+            if (cb != null) {
+                cb.setSelected(true);
+            }
+        }
+    }
+
+    private void clearForm() {
+        idInput.setText("");
+        hotenInput.setText("");
+        emailInput.setText("");
+        sodienthoaiInput.setText("");
+        diachiInput.setText("");
+        dobSpinner.setValue(new Date());
+        namRadio.setSelected(false);
+        nuRadio.setSelected(false);
+        for (JCheckBox cb : checkBoxes.values()) {
+            cb.setSelected(false);
+        }
     }
 }

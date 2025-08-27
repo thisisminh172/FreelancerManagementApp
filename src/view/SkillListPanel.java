@@ -58,7 +58,7 @@ public class SkillListPanel extends javax.swing.JPanel {
         tenInput = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         updateButton = new javax.swing.JButton();
-        resetButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         motaInput = new javax.swing.JTextArea();
         idInput = new javax.swing.JTextField();
@@ -101,7 +101,15 @@ public class SkillListPanel extends javax.swing.JPanel {
             new String [] {
                 "Mã kỹ năng", "Tên kỹ năng", "Mô tả"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         kyNangTable.setSelectionBackground(new java.awt.Color(255, 255, 204));
         kyNangTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -109,6 +117,10 @@ public class SkillListPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(kyNangTable);
+        if (kyNangTable.getColumnModel().getColumnCount() > 0) {
+            kyNangTable.getColumnModel().getColumn(0).setResizable(false);
+            kyNangTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+        }
 
         addNewSkillButton.setText("➕ Thêm mới");
         addNewSkillButton.addActionListener(new java.awt.event.ActionListener() {
@@ -148,11 +160,17 @@ public class SkillListPanel extends javax.swing.JPanel {
         jLabel12.setText("Mô tả");
 
         updateButton.setText("Cập nhật");
-
-        resetButton.setText("Reset");
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
+                updateButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setBackground(new java.awt.Color(255, 102, 102));
+        deleteButton.setText("Xóa");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
             }
         });
 
@@ -175,7 +193,7 @@ public class SkillListPanel extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(idInput, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))
+                        .addComponent(idInput, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
@@ -186,11 +204,11 @@ public class SkillListPanel extends javax.swing.JPanel {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(updateButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resetButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +229,7 @@ public class SkillListPanel extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
-                    .addComponent(resetButton))
+                    .addComponent(deleteButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -227,7 +245,7 @@ public class SkillListPanel extends javax.swing.JPanel {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,9 +266,26 @@ public class SkillListPanel extends javax.swing.JPanel {
         cl.show(mainPanel, CREATE_NEW_SKILL);
     }//GEN-LAST:event_addNewSkillButtonActionPerformed
 
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_resetButtonActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        int result = JOptionPane.showConfirmDialog(
+                this, // parent component
+                "Bạn có chắc chắn muốn xóa?", // message
+                "Xác nhận", // title
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (result == JOptionPane.YES_OPTION) {
+            String id = idInput.getText();
+            if (!id.equals("")) {
+                int num = kyNangController.delete(Integer.valueOf(id));
+                if (num != 0) {
+                    fetchSkillTable();
+                    clearForm();
+                }
+            }
+        }
+
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void kyNangTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kyNangTableMouseClicked
         // TODO add your handling code here:
@@ -259,13 +294,29 @@ public class SkillListPanel extends javax.swing.JPanel {
         int col = 0; // id column
         String s = source.getModel().getValueAt(row, col) + "";
 
-        
         formReady(Integer.valueOf(s));
     }//GEN-LAST:event_kyNangTableMouseClicked
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        String id = idInput.getText();
+        String ten = tenInput.getText();
+        String mota = motaInput.getText();
+
+        if (!id.equals("")) {
+            KyNang kn = new KyNang(Integer.valueOf(id), ten, mota);
+            int num = kyNangController.update(kn);
+            if (num != 0) {
+                fetchSkillTable();
+            }
+        }
+
+    }//GEN-LAST:event_updateButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewSkillButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTextField idInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -279,13 +330,11 @@ public class SkillListPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable kyNangTable;
     private javax.swing.JTextArea motaInput;
-    private javax.swing.JButton resetButton;
     private javax.swing.JTextField tenInput;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
-    
+
     private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
-    
 
     private void fetchSkillTable() {
         List<KyNang> dsKyNang = kyNangController.getAll();
@@ -302,17 +351,27 @@ public class SkillListPanel extends javax.swing.JPanel {
         }
     }
 
+    public void reloadTable() {
+        fetchSkillTable();
+    }
+
+    private void clearForm() {
+        idInput.setText("");
+        tenInput.setText("");
+        motaInput.setText("");
+    }
+
     private void formReady(int id) {
-        if (id==0) {
-            idInput.setText("");
-            tenInput.setText("");
-            motaInput.setText("");
+        KyNang kn;
+        if (id == 0) {
+            int firstRowId = (int) kyNangTable.getValueAt(0, 0);
+            kn = kyNangController.findById(firstRowId);
         } else {
-            KyNang kn = kyNangController.findById(id);
-            idInput.setText(String.valueOf(kn.getId()));
-            tenInput.setText(kn.getTen());
-            motaInput.setText(kn.getMota());
+            kn = kyNangController.findById(id);
         }
+        idInput.setText(String.valueOf(kn.getId()));
+        tenInput.setText(kn.getTen());
+        motaInput.setText(kn.getMota());
     }
 
 }

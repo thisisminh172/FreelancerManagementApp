@@ -18,6 +18,13 @@ public class KyNang {
         this.ten = ten;
         this.mota = mota;
     }
+    
+    public KyNang(String ten, String mota) {
+        this.ten = ten;
+        this.mota = mota;
+    }
+    
+    public KyNang() {}
 
     public int getId() {
         return id;

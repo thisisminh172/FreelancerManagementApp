@@ -223,7 +223,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             new MainJFrame().setVisible(true);
             dispose();
         } catch (Exception ex) {
-            System.out.println("ẽ:"+ ex.getMessage());
+            System.out.println("ex:"+ ex.getMessage());
         } finally {
             passwordField.setText("");
         }

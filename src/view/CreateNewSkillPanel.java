@@ -154,6 +154,14 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
+        if (tenInput.getText().isEmpty() || tenInput.getText().equals("Nhập kỹ năng...")) {
+            JOptionPane.showMessageDialog(this, "Tên kỹ năng không được để trống!");
+            return;
+        }
+        if (motaInput.getText().isEmpty() || motaInput.getText().equals("Nhập mô tả...")) {
+            JOptionPane.showMessageDialog(this, "Mô tả không được để trống!");
+            return;
+        }
         String ten = tenInput.getText();
         String mota = motaInput.getText();
         
@@ -164,8 +172,10 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
-        tenInput.setText("");
-        motaInput.setText("");
+        tenInput.setText("Nhập kỹ năng...");
+        tenInput.setForeground(new java.awt.Color(153, 153, 153));
+        motaInput.setText("Nhập mô tả...");
+        motaInput.setForeground(new java.awt.Color(153, 153, 153));
     }//GEN-LAST:event_resetButtonActionPerformed
 
     private void tenInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tenInputFocusGained

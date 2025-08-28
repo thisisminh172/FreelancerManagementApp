@@ -9,6 +9,7 @@ package model;
  * @author thisi
  */
 public class KhachHang {
+
     private int id;
     private String ten;
     private String email;
@@ -16,6 +17,12 @@ public class KhachHang {
 
     public KhachHang(int id, String ten, String email, String soDienThoai) {
         this.id = id;
+        this.ten = ten;
+        this.email = email;
+        this.soDienThoai = soDienThoai;
+    }
+
+    public KhachHang(String ten, String email, String soDienThoai) {
         this.ten = ten;
         this.email = email;
         this.soDienThoai = soDienThoai;
@@ -52,6 +59,27 @@ public class KhachHang {
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.ten; // Display name in JComboBox
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        KhachHang other = (KhachHang) obj;
+        return this.getId() == other.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(getId());
+    }
+
 }

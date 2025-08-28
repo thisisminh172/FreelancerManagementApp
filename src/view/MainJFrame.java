@@ -312,7 +312,7 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("Danh sách dự án");
         cl.show(mainPanel, PROJECT_LIST);
-//        projectListPanel.reloadTable();
+        projectListPanel.reloadTable();
     }//GEN-LAST:event_projectListMenuItemActionPerformed
 
     private void projectMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_projectMenuActionPerformed

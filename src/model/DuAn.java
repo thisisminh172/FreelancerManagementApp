@@ -5,6 +5,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -15,10 +16,10 @@ public class DuAn {
     private String ten;
     private LocalDate ngayBatDau;
     private LocalDate ngayKetThuc;
-    private String maKhachHang;
+    private int maKhachHang;
     private String mota;
 
-    public DuAn(int id, String ten, LocalDate ngayBatDau, LocalDate ngayKetThuc, String maKhachHang, String mota) {
+    public DuAn(int id, String ten, LocalDate ngayBatDau, LocalDate ngayKetThuc, int maKhachHang, String mota) {
         this.id = id;
         this.ten = ten;
         this.ngayBatDau = ngayBatDau;
@@ -26,6 +27,17 @@ public class DuAn {
         this.maKhachHang = maKhachHang;
         this.mota = mota;
     }
+    
+    public DuAn(String ten, LocalDate ngayBatDau, LocalDate ngayKetThuc, int maKhachHang, String mota) {
+        this.id = id;
+        this.ten = ten;
+        this.ngayBatDau = ngayBatDau;
+        this.ngayKetThuc = ngayKetThuc;
+        this.maKhachHang = maKhachHang;
+        this.mota = mota;
+    }
+    
+    public DuAn() {}
 
     public int getId() {
         return id;
@@ -59,11 +71,11 @@ public class DuAn {
         this.ngayKetThuc = ngayKetThuc;
     }
 
-    public String getMaKhachHang() {
+    public int getMaKhachHang() {
         return maKhachHang;
     }
 
-    public void setMaKhachHang(String maKhachHang) {
+    public void setMaKhachHang(int maKhachHang) {
         this.maKhachHang = maKhachHang;
     }
 
@@ -73,6 +85,28 @@ public class DuAn {
 
     public void setMota(String mota) {
         this.mota = mota;
+    }
+    
+    @Override
+    public String toString() {
+        return this.ten; // Display name in JComboBox
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        DuAn other = (DuAn) obj;
+        return this.getId() == other.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(getId());
     }
     
     

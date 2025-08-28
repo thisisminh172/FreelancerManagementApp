@@ -6,6 +6,7 @@ package controller;
 
 import dao.DuAnDAO;
 import java.util.List;
+import java.util.Map;
 import model.DuAn;
 
 /**
@@ -31,11 +32,19 @@ public class DuAnController {
         return duAnDAO.update(da);
     }
 
-    public List<DuAn> getAll() {
+    public List<Map<String, Object>> getAll() {
         return duAnDAO.getAll();
     }
 
     public DuAn findById(int id) {
         return duAnDAO.findById(id);
+    }
+
+    public int clearDuAnFreelancerByDuAnId(int duanId) {
+        return duAnDAO.clearDuAnFreelancerByDuAnId(duanId);
+    }
+
+    public int insertDuAnFreelancer(int duanId, int freelancerId) {
+        return duAnDAO.insertDuAnFreelancer(duanId, freelancerId);
     }
 }

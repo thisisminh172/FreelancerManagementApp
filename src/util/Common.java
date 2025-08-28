@@ -28,4 +28,13 @@ public class Common {
         LocalDate customDate = LocalDate.parse(dateStr, formatter);
         return customDate;
     }
+    
+    public static java.sql.Date convertLocalDateToDate(LocalDate inputDate) {
+        return java.sql.Date.valueOf(inputDate);
+    }
+
+    public static String convertLocalDateToString(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(formatter);
+    }
 }

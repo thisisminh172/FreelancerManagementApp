@@ -438,7 +438,7 @@ public class CreateNewFreelancerPanel extends javax.swing.JPanel {
         }
         KyNangScrollPane.setViewportView(skillsPanel);
     }
-
+    
     private void formReady() {
         addSkillsToScrollPane();
         

@@ -20,7 +20,9 @@ import util.Common;
  * @author thisi
  */
 public class DuAnDAO {
+
     private Connection conn;
+
     public DuAnDAO() {
         try {
             conn = (Connection) DBConnection.getConnection();
@@ -103,7 +105,7 @@ public class DuAnDAO {
                             rs.getDate("ngay_bat_dau").toLocalDate(),
                             rs.getDate("ngay_ket_thuc").toLocalDate(),
                             rs.getInt("ma_khach_hang"),
-                        rs.getString("mota")
+                            rs.getString("mota")
                     );
                 }
             }
@@ -112,7 +114,7 @@ public class DuAnDAO {
         }
         return null;
     }
-    
+
     public int clearDuAnFreelancerByDuAnId(int duanId) {
         String sql = "DELETE FROM du_an_freelancer WHERE du_an_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -123,6 +125,7 @@ public class DuAnDAO {
         }
         return 0;
     }
+
     public int insertDuAnFreelancer(int duanId, int freelancerId) {
         String sql = "INSERT INTO du_an_freelancer (du_an_id, freelancer_id) VALUES (?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -134,7 +137,7 @@ public class DuAnDAO {
         }
         return 0;
     }
-    
+
     public List<Map<String, Object>> getDuAnFreelancerByDuAnId(int duanId) {
         String sql = "SELECT * FROM du_an_freelancer WHERE du_an_id = ?";
         List<Map<String, Object>> results = new ArrayList<>();
@@ -152,5 +155,42 @@ public class DuAnDAO {
             Logger.getLogger(DuAnDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return results;
+    }
+
+    public List<Map<String, Object>> getAllDuAnFreelancers() {
+        String sql = "with d_f as (\n"
+                + "	select du_an_id, COUNT(freelancer_id) sothanhvien from du_an_freelancer\n"
+                + "    group by du_an_id\n"
+                + ")\n"
+                + "select\n"
+                + " df.du_an_id maduan,\n"
+                + " da.ten tenduan,\n"
+                + " da.ngay_bat_dau ngaybatdau,\n"
+                + " da.ngay_ket_thuc ngayketthuc,\n"
+                + " kh.ten tenkhachhang,\n"
+                + " kh.so_dien_thoai sodienthoai,\n"
+                + " df.sothanhvien sothanhvien\n"
+                + "from d_f df \n"
+                + "left join du_an da on df.du_an_id = da.id\n"
+                + "left join khach_hang kh on da.ma_khach_hang = kh.id";
+        List<Map<String, Object>> list = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> row = new HashMap<>();
+                    row.put("maduan", rs.getInt("maduan"));
+                    row.put("tenduan", rs.getString("tenduan"));
+                    row.put("ngaybatdau", rs.getString("ngaybatdau"));
+                    row.put("ngayketthuc", rs.getString("ngayketthuc"));
+                    row.put("tenkhachhang", rs.getString("tenkhachhang"));
+                    row.put("sodienthoai", rs.getString("sodienthoai"));
+                    row.put("sothanhvien", rs.getInt("sothanhvien"));
+                    list.add(row);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DuAnDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 }

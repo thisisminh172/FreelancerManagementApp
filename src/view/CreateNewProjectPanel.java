@@ -125,7 +125,6 @@ public class CreateNewProjectPanel extends javax.swing.JPanel {
         endDate.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(1756106349557L), null, java.util.Calendar.DAY_OF_MONTH));
         endDate.setToolTipText("");
 
-        tenkhInput.setEditable(true);
         tenkhInput.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 tenkhInputItemStateChanged(evt);

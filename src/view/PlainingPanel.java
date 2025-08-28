@@ -83,7 +83,7 @@ public class PlainingPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Freelancer");
 
-        addNewButton.setText("Tạo kế hoạch");
+        addNewButton.setText("Cập nhật kế hoạch");
         addNewButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addNewButtonActionPerformed(evt);

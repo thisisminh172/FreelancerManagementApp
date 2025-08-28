@@ -168,6 +168,12 @@ public class CreateNewSkillPanel extends javax.swing.JPanel {
         
         KyNang kn = new KyNang(ten, mota);
         int num = kyNangController.insert(kn);
+        if (num <= 0) {
+            JOptionPane.showMessageDialog(this, "Thêm kỹ năng thất bại.");
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm kỹ năng thành công.");
+        }
         
     }//GEN-LAST:event_addButtonActionPerformed
 

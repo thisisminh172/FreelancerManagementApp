@@ -39,4 +39,12 @@ public class UserController {
     public User findById(int id) {
         return userDAO.findById(id);
     }
+
+    public int checkUserExists(String username) {
+        return userDAO.checkUserExists(username);
+    }
+
+    public User findByUsername(String username) {
+        return userDAO.findByUsername(username);
+    }
 }

@@ -317,8 +317,7 @@ public class CustomerListPanel extends javax.swing.JPanel {
 
     private void addNewCustomerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewCustomerButtonActionPerformed
         // TODO add your handling code here:
-        System.out.println("Thêm kỹ năng mới mới");
-        cl.show(mainPanel, CREATE_NEW_SKILL);
+        cl.show(mainPanel, CREATE_NEW_CUSTOMER);
     }//GEN-LAST:event_addNewCustomerButtonActionPerformed
 
 
@@ -377,5 +376,9 @@ public class CustomerListPanel extends javax.swing.JPanel {
             emailInput.setText(kh.getEmail());
             sodienthoaiInput.setText(kh.getSoDienThoai());
         }
+    }
+
+    public void reloadTable() {
+        fetchCustomerTable();
     }
 }

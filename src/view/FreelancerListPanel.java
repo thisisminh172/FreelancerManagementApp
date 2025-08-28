@@ -62,6 +62,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         freelancerTable = new javax.swing.JTable();
         addNewFreelancerButton = new javax.swing.JButton();
+        plainingButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -156,6 +157,15 @@ public class FreelancerListPanel extends javax.swing.JPanel {
             }
         });
 
+        plainingButton.setBackground(new java.awt.Color(255, 255, 204));
+        plainingButton.setForeground(new java.awt.Color(51, 51, 255));
+        plainingButton.setText("Lập kế hoạch");
+        plainingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plainingButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,7 +173,10 @@ public class FreelancerListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addNewFreelancerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(addNewFreelancerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(plainingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,7 +184,8 @@ public class FreelancerListPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(addNewFreelancerButton))
+                    .addComponent(addNewFreelancerButton)
+                    .addComponent(plainingButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
         );
@@ -429,6 +443,11 @@ public class FreelancerListPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_updateButtonActionPerformed
 
+    private void plainingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plainingButtonActionPerformed
+        // TODO add your handling code here:
+        cl.show(mainPanel, PLAINING);
+    }//GEN-LAST:event_plainingButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewFreelancerButton;
@@ -457,19 +476,12 @@ public class FreelancerListPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane kynangScrollPane;
     private javax.swing.JRadioButton namRadio;
     private javax.swing.JRadioButton nuRadio;
+    private javax.swing.JButton plainingButton;
     private javax.swing.JTextField sodienthoaiInput;
     private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
-    private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";
     private String CREATE_NEW_FREELANCER = "CREATE_NEW_FREELANCER_PANEL";
-    private String PROJECT_LIST = "PROJECT_LIST_PANEL";
-    private String CREATE_NEW_PROJECT = "CREATE_NEW_PROJECT_PANEL";
-    private String SKILL_LIST = "SKILL_LIST_PANEL";
-    private String CREATE_NEW_SKILL = "CREATE_NEW_SKILL_PANEL";
-    private String USER_DETAIL = "USER_DETAIL_PANEL";
-    private String EDIT_USER_DETAIL = "EDIT_USER_DETAIL_PANEL";
-    private String CUSTOMER_LIST = "CUSTOMER_LIST_PANEL";
-    private String CREATE_NEW_CUSTOMER = "CREATE_NEW_CUSTOMER_PANEL";
+    private String PLAINING = "PLAINING_PANEL";
     private final Map<Integer, JCheckBox> checkBoxes = new LinkedHashMap<>();
 
     private void addSkillsToScrollPane() {

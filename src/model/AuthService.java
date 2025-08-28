@@ -4,6 +4,7 @@
  */
 package model;
 
+import controller.UserController;
 import model.User;
 
 /**
@@ -11,15 +12,19 @@ import model.User;
  * @author thisi
  */
 public class AuthService {
+    
+    UserController userController;
+    
+    public AuthService() {
+        userController = new UserController();
+    }
 
     public User login(String username, String password) throws Exception {
         // demo: accept one hardcoded account
-        if (("admin".equalsIgnoreCase(username) || "user".equalsIgnoreCase(username)) && password.equals("123")) {
-            if ("admin".equalsIgnoreCase(username)) {
-                return new User(1, "Admin User", "admin@gmail.com", "admin", "123", "ADMIN");
-            } else {
-                return new User(2, "User User", "user@gmail.com", "user", "123", "USER");
-            }
+        User user = userController.findByUsername(username);
+        
+        if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
+            return user;
         }
         throw new Exception("Invalid email or password");
     }

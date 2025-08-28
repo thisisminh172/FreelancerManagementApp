@@ -54,12 +54,36 @@ public class CreateNewCustomerPanel extends javax.swing.JPanel {
 
         tenInput.setForeground(new java.awt.Color(153, 153, 153));
         tenInput.setText("Nhập tên khách hàng...");
+        tenInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tenInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tenInputFocusLost(evt);
+            }
+        });
 
         emailInput.setForeground(new java.awt.Color(153, 153, 153));
         emailInput.setText("Nhập email...");
+        emailInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailInputFocusLost(evt);
+            }
+        });
 
         sodienthoaiInput.setForeground(new java.awt.Color(153, 153, 153));
         sodienthoaiInput.setText("Nhập số điện thoại...");
+        sodienthoaiInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                sodienthoaiInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                sodienthoaiInputFocusLost(evt);
+            }
+        });
 
         addNewButton.setText("Thêm mới");
         addNewButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,10 +182,12 @@ public class CreateNewCustomerPanel extends javax.swing.JPanel {
         int num = khachHangController.insert(khachHang);
         if (num > 0) {
             javax.swing.JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công.", "Thông báo", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            // Clear input fields
-            tenInput.setText("");
-            emailInput.setText("");
-            sodienthoaiInput.setText("");
+            tenInput.setText("Nhập tên khách hàng...");
+            tenInput.setForeground(new java.awt.Color(153, 153, 153));
+            emailInput.setText("Nhập email...");
+            emailInput.setForeground(new java.awt.Color(153, 153, 153));
+            sodienthoaiInput.setText("Nhập số điện thoại...");
+            sodienthoaiInput.setForeground(new java.awt.Color(153, 153, 153));
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Thêm khách hàng thất bại.", "Lỗi", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
@@ -169,10 +195,61 @@ public class CreateNewCustomerPanel extends javax.swing.JPanel {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
-        tenInput.setText("");
-        emailInput.setText("");
-        sodienthoaiInput.setText("");
+        tenInput.setText("Nhập tên khách hàng...");
+        tenInput.setForeground(new java.awt.Color(153, 153, 153));
+        emailInput.setText("Nhập email...");
+        emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        sodienthoaiInput.setText("Nhập số điện thoại...");
+        sodienthoaiInput.setForeground(new java.awt.Color(153, 153, 153));
     }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void tenInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tenInputFocusGained
+        // TODO add your handling code here:
+        if (tenInput.getText().equals("Nhập tên khách hàng...")) {
+            tenInput.setText("");
+            tenInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_tenInputFocusGained
+
+    private void tenInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tenInputFocusLost
+        // TODO add your handling code here:
+        if (tenInput.getText().isEmpty()) {
+            tenInput.setText("Nhập tên khách hàng...");
+            tenInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_tenInputFocusLost
+
+    private void emailInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusGained
+        // TODO add your handling code here:
+        if (emailInput.getText().equals("Nhập email...")) {
+            emailInput.setText("");
+            emailInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_emailInputFocusGained
+
+    private void emailInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusLost
+        // TODO add your handling code here:
+        if (emailInput.getText().isEmpty()) {
+            emailInput.setText("Nhập email...");
+            emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_emailInputFocusLost
+
+    private void sodienthoaiInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sodienthoaiInputFocusGained
+        // TODO add your handling code here:
+        if (sodienthoaiInput.getText().equals("Nhập số điện thoại...")) {
+            sodienthoaiInput.setText("");
+            sodienthoaiInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_sodienthoaiInputFocusGained
+
+    private void sodienthoaiInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sodienthoaiInputFocusLost
+        // TODO add your handling code here:
+        if (sodienthoaiInput.getText().isEmpty()) {
+            sodienthoaiInput.setText("Nhập số điện thoại...");
+            sodienthoaiInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_sodienthoaiInputFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,10 @@
  */
 package view;
 
+import controller.UserController;
+import javax.swing.JOptionPane;
+import model.User;
+
 /**
  *
  * @author thisi
@@ -13,8 +17,13 @@ public class CreateNewUserPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateNewUserPanel
      */
+    UserController userController;
     public CreateNewUserPanel() {
         initComponents();
+        userController = new UserController();
+        roleButtonGroup.add(userRadio);
+        roleButtonGroup.add(adminRadio);
+        userRadio.setSelected(true);
     }
 
     /**
@@ -26,9 +35,207 @@ public class CreateNewUserPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roleButtonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        hotenInput = new javax.swing.JTextField();
+        addButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
+        emailInput = new javax.swing.JTextField();
+        usernameInput = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        password1Input = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        password2Input = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        adminRadio = new javax.swing.JRadioButton();
+        userRadio = new javax.swing.JRadioButton();
 
         jLabel1.setText("TẠO NGƯỜI DÙNG");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel2.setText("Họ tên");
+
+        jLabel3.setText("Email");
+
+        hotenInput.setForeground(new java.awt.Color(153, 153, 153));
+        hotenInput.setText("Nhập họ tên...");
+        hotenInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                hotenInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                hotenInputFocusLost(evt);
+            }
+        });
+        hotenInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hotenInputActionPerformed(evt);
+            }
+        });
+
+        addButton.setText("Thêm mới");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addButtonActionPerformed(evt);
+            }
+        });
+
+        resetButton.setText("Reset");
+        resetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetButtonActionPerformed(evt);
+            }
+        });
+
+        emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        emailInput.setText("Nhập email...");
+        emailInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailInputFocusLost(evt);
+            }
+        });
+        emailInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailInputActionPerformed(evt);
+            }
+        });
+
+        usernameInput.setForeground(new java.awt.Color(153, 153, 153));
+        usernameInput.setText("Nhập username...");
+        usernameInput.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usernameInputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                usernameInputFocusLost(evt);
+            }
+        });
+        usernameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameInputActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Username");
+
+        password1Input.setForeground(new java.awt.Color(153, 153, 153));
+        password1Input.setText("Nhập mật khẩu...");
+        password1Input.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                password1InputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                password1InputFocusLost(evt);
+            }
+        });
+        password1Input.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                password1InputActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Password");
+
+        password2Input.setForeground(new java.awt.Color(153, 153, 153));
+        password2Input.setText("Nhập lại mật khẩu...");
+        password2Input.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                password2InputFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                password2InputFocusLost(evt);
+            }
+        });
+
+        jLabel6.setText("Password(2)");
+
+        jLabel7.setText("Role");
+
+        adminRadio.setText("ADMIN");
+
+        userRadio.setText("USER");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(adminRadio)
+                .addGap(18, 18, 18)
+                .addComponent(userRadio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(resetButton))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(password1Input, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usernameInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(password2Input, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(password1Input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(adminRadio)
+                    .addComponent(userRadio)
+                    .addComponent(jLabel6)
+                    .addComponent(password2Input, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(101, 101, 101)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(resetButton))
+                .addContainerGap(180, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -36,20 +243,191 @@ public class CreateNewUserPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(683, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void hotenInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotenInputFocusGained
+        // TODO add your handling code here:
+        if (hotenInput.getText().equals("Nhập họ tên...")) {
+            hotenInput.setText("");
+            hotenInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_hotenInputFocusGained
+
+    private void hotenInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_hotenInputFocusLost
+        // TODO add your handling code here:
+        if (hotenInput.getText().isEmpty()) {
+            hotenInput.setText("Nhập họ tên...");
+            hotenInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_hotenInputFocusLost
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        // TODO add your handling code here:
+        String hoten = hotenInput.getText();
+        String email = emailInput.getText();
+        String username = usernameInput.getText();
+        String password1 = password1Input.getText();
+        String password2 = password2Input.getText();
+        String role = userRadio.isSelected() ? "USER" : "ADMIN";
+
+        if (hoten.isEmpty() || email.isEmpty() || username.isEmpty() || password1.isEmpty() || password2.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.");
+            return;
+        }
+
+        if (!password1.equals(password2)) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không khớp.");
+            return;
+        }
+        if (userController.checkUserExists(username) > 0) {
+            JOptionPane.showMessageDialog(this, "Username đã tồn tại. Vui lòng chọn username khác.");
+            return;
+        }
+
+        User newUser = new User(hoten, email, username, password1, role);
+        int num = userController.insert(newUser);
+        if (num <= 0) {
+            JOptionPane.showMessageDialog(this, "Thêm người dùng thất bại.");
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Thêm người dùng thành công.");
+            clearForm();
+        }
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+        // TODO add your handling code here:
+        clearForm();
+    }//GEN-LAST:event_resetButtonActionPerformed
+
+    private void emailInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusGained
+        // TODO add your handling code here:
+        if (emailInput.getText().equals("Nhập email...")) {
+            emailInput.setText("");
+            emailInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_emailInputFocusGained
+
+    private void emailInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailInputFocusLost
+        // TODO add your handling code here:
+        if (emailInput.getText().isEmpty()) {
+            emailInput.setText("Nhập email...");
+            emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_emailInputFocusLost
+
+    private void usernameInputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameInputFocusGained
+        // TODO add your handling code here:
+        if (usernameInput.getText().equals("Nhập username...")) {
+            usernameInput.setText("");
+            usernameInput.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_usernameInputFocusGained
+
+    private void usernameInputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameInputFocusLost
+        // TODO add your handling code here:
+        if (usernameInput.getText().isEmpty()) {
+            usernameInput.setText("Nhập username...");
+            usernameInput.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_usernameInputFocusLost
+
+    private void password1InputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password1InputFocusGained
+        // TODO add your handling code here:
+        if (password1Input.getText().equals("Nhập mật khẩu...")) {
+            password1Input.setText("");
+            password1Input.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_password1InputFocusGained
+
+    private void password1InputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password1InputFocusLost
+        // TODO add your handling code here:
+        if (password1Input.getText().isEmpty()) {
+            password1Input.setText("Nhập mật khẩu...");
+            password1Input.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_password1InputFocusLost
+
+    private void password2InputFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password2InputFocusGained
+        // TODO add your handling code here:
+        if (password2Input.getText().equals("Nhập lại mật khẩu...")) {
+            password2Input.setText("");
+            password2Input.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_password2InputFocusGained
+
+    private void password2InputFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_password2InputFocusLost
+        // TODO add your handling code here:
+        if (password2Input.getText().isEmpty()) {
+            password2Input.setText("Nhập lại mật khẩu...");
+            password2Input.setForeground(new java.awt.Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_password2InputFocusLost
+
+    private void emailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailInputActionPerformed
+
+    private void password1InputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password1InputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_password1InputActionPerformed
+
+    private void hotenInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotenInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hotenInputActionPerformed
+
+    private void usernameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameInputActionPerformed
+
+    private void clearForm(){
+        hotenInput.setText("Nhập họ tên...");
+        hotenInput.setForeground(new java.awt.Color(153, 153, 153));
+        emailInput.setText("Nhập email...");
+        emailInput.setForeground(new java.awt.Color(153, 153, 153));
+        usernameInput.setText("Nhập username...");
+        usernameInput.setForeground(new java.awt.Color(153, 153, 153));
+        password1Input.setText("Nhập mật khẩu...");
+        password1Input.setForeground(new java.awt.Color(153, 153, 153));
+        password2Input.setText("Nhập lại mật khẩu...");
+        password2Input.setForeground(new java.awt.Color(153, 153, 153));
+        userRadio.setSelected(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addButton;
+    private javax.swing.JRadioButton adminRadio;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JTextField hotenInput;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField password1Input;
+    private javax.swing.JTextField password2Input;
+    private javax.swing.JButton resetButton;
+    private javax.swing.ButtonGroup roleButtonGroup;
+    private javax.swing.JRadioButton userRadio;
+    private javax.swing.JTextField usernameInput;
     // End of variables declaration//GEN-END:variables
 }

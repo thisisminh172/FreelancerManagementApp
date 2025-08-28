@@ -4,8 +4,13 @@
  */
 package view;
 
+import controller.UserController;
 import java.awt.CardLayout;
+import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.User;
 
 /**
  *
@@ -18,10 +23,15 @@ public class UserListPanel extends javax.swing.JPanel {
      */
     private JPanel mainPanel;
     private CardLayout cl;
+    UserController userController;
     public UserListPanel(JPanel mainPanel, CardLayout cl) {
         initComponents();
         this.mainPanel = mainPanel;
         this.cl = cl;
+        userController = new UserController();
+        
+        roleButtonGroup.add(userRadio);
+        roleButtonGroup.add(adminRadio);
         
         fetchUserTable();
     }
@@ -35,28 +45,30 @@ public class UserListPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        roleButtonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        userTable = new javax.swing.JTable();
         addNewUserButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        userpanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        hotenInput = new javax.swing.JTextField();
         updateButton = new javax.swing.JButton();
-        resetButton = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        deleteButton = new javax.swing.JButton();
+        idInput = new javax.swing.JTextField();
+        emailInput = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        usernameInput = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        passwordInput = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        adminRadio = new javax.swing.JRadioButton();
+        userRadio = new javax.swing.JRadioButton();
 
         jLabel1.setText("DANH SÁCH NGƯỜI DÙNG");
 
@@ -64,7 +76,7 @@ public class UserListPanel extends javax.swing.JPanel {
 
         jLabel2.setText("Danh sách");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,11 +106,31 @@ public class UserListPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Mã", "Họ tên", "Email", "Quyền hạn"
+                "Mã", "Họ tên", "Username", "Quyền hạn"
             }
-        ));
-        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 204));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        userTable.setSelectionBackground(new java.awt.Color(255, 255, 204));
+        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(0).setResizable(false);
+            userTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            userTable.getColumnModel().getColumn(1).setResizable(false);
+            userTable.getColumnModel().getColumn(2).setResizable(false);
+            userTable.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         addNewUserButton.setText("➕ Thêm mới");
         addNewUserButton.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +159,7 @@ public class UserListPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        userpanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel3.setText("Thông tin chi tiết");
 
@@ -136,16 +168,21 @@ public class UserListPanel extends javax.swing.JPanel {
         jLabel11.setText("Họ tên");
 
         updateButton.setText("Cập nhật");
-
-        resetButton.setText("Reset");
-        resetButton.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetButtonActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        jTextField6.setEditable(false);
-        jTextField6.setText("F000001");
+        deleteButton.setBackground(new java.awt.Color(255, 102, 102));
+        deleteButton.setText("Xóa");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
+        idInput.setEditable(false);
 
         jLabel12.setText("Email");
 
@@ -155,81 +192,88 @@ public class UserListPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Quyền hạn");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
-                .addComponent(updateButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resetButton)
-                .addGap(55, 55, 55))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField6))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField5))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField8))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField7))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addGap(10, 10, 10)
-                        .addComponent(jTextField11)))
-                .addContainerGap())
+        adminRadio.setText("ADMIN");
+
+        userRadio.setText("USER");
+
+        javax.swing.GroupLayout userpanelLayout = new javax.swing.GroupLayout(userpanel);
+        userpanel.setLayout(userpanelLayout);
+        userpanelLayout.setHorizontalGroup(
+            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userpanelLayout.createSequentialGroup()
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userpanelLayout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addGap(10, 10, 10)
+                            .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(userpanelLayout.createSequentialGroup()
+                            .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel15))
+                            .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(userpanelLayout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(userpanelLayout.createSequentialGroup()
+                                    .addGap(34, 34, 34)
+                                    .addComponent(adminRadio)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(userRadio))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userpanelLayout.createSequentialGroup()
+                            .addComponent(jLabel12)
+                            .addGap(10, 10, 10)
+                            .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userpanelLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addGap(10, 10, 10)
+                            .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userpanelLayout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userpanelLayout.createSequentialGroup()
+                            .addComponent(updateButton)
+                            .addGap(22, 22, 22)
+                            .addComponent(deleteButton)
+                            .addGap(49, 49, 49))))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        userpanelLayout.setVerticalGroup(
+            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userpanelLayout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hotenInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adminRadio)
+                    .addComponent(userRadio))
+                .addGap(69, 69, 69)
+                .addGroup(userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateButton)
-                    .addComponent(resetButton))
-                .addGap(84, 84, 84))
+                    .addComponent(deleteButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -242,7 +286,7 @@ public class UserListPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(userpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -255,7 +299,7 @@ public class UserListPanel extends javax.swing.JPanel {
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(userpanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -266,13 +310,56 @@ public class UserListPanel extends javax.swing.JPanel {
         cl.show(mainPanel, CREATE_NEW_USER);
     }//GEN-LAST:event_addNewUserButtonActionPerformed
 
-    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_resetButtonActionPerformed
+        int id = Integer.valueOf(idInput.getText());
+        int num = userController.delete(id);
+        if (num > 0) {
+            System.out.println("Xóa người dùng thành công");
+            fetchUserTable();
+        } else {
+            System.out.println("Xóa người dùng thất bại");
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.valueOf(idInput.getText());
+        String email = emailInput.getText();
+        String username = usernameInput.getText();
+        String password = passwordInput.getText();
+        String hoten = hotenInput.getText();
+        String role = adminRadio.isSelected() ? "ADMIN" : "USER";
+
+        User user = new User(id, hoten, email, username, password, role);
+
+        int num = userController.update(user);
+        if (num > 0) {
+            System.out.println("Cập nhật người dùng thành công");
+            fetchUserTable();
+        } else {
+            System.out.println("Cập nhật người dùng thất bại");
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void userTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTableMouseClicked
+        // TODO add your handling code here:
+        JTable source = (JTable) evt.getSource();
+        int row = source.rowAtPoint(evt.getPoint());
+        int col = 0; // id column
+        String s = source.getModel().getValueAt(row, col) + "";
+
+        formReady(Integer.valueOf(s));
+    }//GEN-LAST:event_userTableMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewUserButton;
+    private javax.swing.JRadioButton adminRadio;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JTextField emailInput;
+    private javax.swing.JTextField hotenInput;
+    private javax.swing.JTextField idInput;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -283,22 +370,55 @@ public class UserListPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JButton resetButton;
+    private javax.swing.JTextField passwordInput;
+    private javax.swing.ButtonGroup roleButtonGroup;
     private javax.swing.JButton updateButton;
+    private javax.swing.JRadioButton userRadio;
+    private javax.swing.JTable userTable;
+    private javax.swing.JTextField usernameInput;
+    private javax.swing.JPanel userpanel;
     // End of variables declaration//GEN-END:variables
     private String USER_LIST = "USER_LIST_PANEL";
     private String CREATE_NEW_USER = "CREATE_NEW_USER_PANEL";
 
     private void fetchUserTable() {
+        List<User> ds = userController.getAll();
+        DefaultTableModel model = (DefaultTableModel) userTable.getModel();
+        model.setRowCount(0);
+        for (User user : ds) {
+            model.addRow(new Object[]{
+                user.getId(),
+                user.getFullName(),
+                user.getUsername(),
+                user.getRole()
+            });
+        }
         
+        formReady(0);
+    }
+    
+    private void formReady(int id) {
+        if (id == 0 && userTable.getRowCount() > 0) {
+            id = (int) userTable.getValueAt(0, 0);
+        } else if (userTable.getRowCount() == 0) {
+            return;
+        }
+        User user = userController.findById(id);
+        idInput.setText(String.valueOf(user.getId()));
+        emailInput.setText(user.getEmail());
+        usernameInput.setText(user.getUsername());
+        passwordInput.setText(user.getPassword());
+        hotenInput.setText(user.getFullName());
+        roleButtonGroup.clearSelection();
+        if (user.getRole().equalsIgnoreCase("ADMIN")) {
+            adminRadio.setSelected(true);
+        } else {
+            userRadio.setSelected(true);
+        }
+    }
+    
+    public void reloadTable() {
+        fetchUserTable();
     }
 }

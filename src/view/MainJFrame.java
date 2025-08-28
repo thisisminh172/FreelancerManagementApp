@@ -14,10 +14,8 @@ import view.CreateNewFreelancerPanel;
 import view.CreateNewProjectPanel;
 import view.CreateNewSkillPanel;
 import view.CustomerListPanel;
-import view.EditUserDetailPanel;
 import view.ProjectListPanel;
 import view.SkillListPanel;
-import view.UserDetailPanel;
 
 /**
  *
@@ -35,7 +33,7 @@ public class MainJFrame extends javax.swing.JFrame {
         initPanels(mainPanel, cl);
         setGroupLayout();
         
-        cl.show(mainPanel, FREELANCER_LIST); // default panel
+        cl.show(mainPanel, PLAN_LIST); // default panel
     }
 
     /**
@@ -52,6 +50,7 @@ public class MainJFrame extends javax.swing.JFrame {
         mainMenu = new javax.swing.JMenu();
         logoutMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
+        kehoachMenu = new javax.swing.JMenu();
         freelancerMenu = new javax.swing.JMenu();
         freelancerListMenuItem = new javax.swing.JMenuItem();
         createNewFreelancerMenuItem = new javax.swing.JMenuItem();
@@ -66,9 +65,6 @@ public class MainJFrame extends javax.swing.JFrame {
         skillListMenuItem = new javax.swing.JMenuItem();
         createNewSkillMenuItem = new javax.swing.JMenuItem();
         userMenu = new javax.swing.JMenu();
-        userDetailMenuItem = new javax.swing.JMenuItem();
-        editUserDetailMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
         userListMenuItem = new javax.swing.JMenuItem();
         createNewUserMenuItem = new javax.swing.JMenuItem();
 
@@ -97,6 +93,14 @@ public class MainJFrame extends javax.swing.JFrame {
         mainMenu.add(exitMenuItem);
 
         jMenuBar1.add(mainMenu);
+
+        kehoachMenu.setText("KẾ HOẠCH");
+        kehoachMenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kehoachMenuMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(kehoachMenu);
 
         freelancerMenu.setText("Freelancer");
 
@@ -194,27 +198,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(skillMenu);
 
-        userMenu.setText("Hồ sơ");
-
-        userDetailMenuItem.setText("Chi tiết");
-        userDetailMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userDetailMenuItemActionPerformed(evt);
-            }
-        });
-        userMenu.add(userDetailMenuItem);
-
-        editUserDetailMenuItem.setText("Điều chỉnh");
-        editUserDetailMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editUserDetailMenuItemActionPerformed(evt);
-            }
-        });
-        userMenu.add(editUserDetailMenuItem);
-
-        jMenuBar1.add(userMenu);
-
-        jMenu1.setText("Người dùng");
+        userMenu.setText("Người dùng");
 
         userListMenuItem.setText("Danh sách người dùng");
         userListMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +206,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 userListMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(userListMenuItem);
+        userMenu.add(userListMenuItem);
 
         createNewUserMenuItem.setText("➕ Thêm người dùng");
         createNewUserMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -230,9 +214,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 createNewUserMenuItemActionPerformed(evt);
             }
         });
-        jMenu1.add(createNewUserMenuItem);
+        userMenu.add(createNewUserMenuItem);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(userMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -285,18 +269,6 @@ public class MainJFrame extends javax.swing.JFrame {
         skillListPanel.reloadTable();
     }//GEN-LAST:event_skillListMenuItemActionPerformed
 
-    private void userDetailMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userDetailMenuItemActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Chi tiết người dùng");
-        cl.show(mainPanel, USER_DETAIL);
-    }//GEN-LAST:event_userDetailMenuItemActionPerformed
-
-    private void editUserDetailMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserDetailMenuItemActionPerformed
-        // TODO add your handling code here:
-        System.out.println("Chỉnh sửa thông tin người dùng");
-        cl.show(mainPanel, EDIT_USER_DETAIL);
-    }//GEN-LAST:event_editUserDetailMenuItemActionPerformed
-
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
         // TODO add your handling code here:
         System.exit(0);
@@ -329,7 +301,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void CustomerListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CustomerListMenuItemActionPerformed
         // TODO add your handling code here:
         cl.show(mainPanel, CUSTOMER_LIST);
-//        customerListPanel.reloadTable();
+        customerListPanel.reloadTable();
     }//GEN-LAST:event_CustomerListMenuItemActionPerformed
 
     private void plainingMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plainingMenuItemActionPerformed
@@ -340,13 +312,19 @@ public class MainJFrame extends javax.swing.JFrame {
     private void userListMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userListMenuItemActionPerformed
         // TODO add your handling code here:
         cl.show(mainPanel, USER_LIST);
-//        userListPanel.reloadTable();
+        userListPanel.reloadTable();
     }//GEN-LAST:event_userListMenuItemActionPerformed
 
     private void createNewUserMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createNewUserMenuItemActionPerformed
         // TODO add your handling code here:
         cl.show(mainPanel, CREATE_NEW_USER);
     }//GEN-LAST:event_createNewUserMenuItemActionPerformed
+
+    private void kehoachMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kehoachMenuMouseClicked
+        // TODO add your handling code here:
+        cl.show(mainPanel, PLAN_LIST);
+//        planListPanel.reloadTable();
+    }//GEN-LAST:event_kehoachMenuMouseClicked
 
     /**
      * @param args the command line arguments
@@ -391,12 +369,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem createNewSkillMenuItem;
     private javax.swing.JMenuItem createNewUserMenuItem;
     private javax.swing.JMenu customerMenu;
-    private javax.swing.JMenuItem editUserDetailMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenuItem freelancerListMenuItem;
     private javax.swing.JMenu freelancerMenu;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu kehoachMenu;
     private javax.swing.JMenuItem logoutMenuItem;
     private javax.swing.JMenu mainMenu;
     private javax.swing.JPanel mainPanel;
@@ -405,7 +382,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu projectMenu;
     private javax.swing.JMenuItem skillListMenuItem;
     private javax.swing.JMenu skillMenu;
-    private javax.swing.JMenuItem userDetailMenuItem;
     private javax.swing.JMenuItem userListMenuItem;
     private javax.swing.JMenu userMenu;
     // End of variables declaration//GEN-END:variables
@@ -423,6 +399,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private String PLAINING = "PLAINING_PANEL";
     private String USER_LIST = "USER_LIST_PANEL";
     private String CREATE_NEW_USER = "CREATE_NEW_USER_PANEL";
+    private String PLAN_LIST = "PLAN_LIST_PANEL";
 
     private java.awt.CardLayout cl;
 
@@ -432,13 +409,12 @@ public class MainJFrame extends javax.swing.JFrame {
     private CreateNewProjectPanel createNewProjectPanel;
     private SkillListPanel skillListPanel;
     private CreateNewSkillPanel createNewSkillPanel;
-    private UserDetailPanel userDetailPanel;
-    private EditUserDetailPanel editUserDetailPanel;
     private CustomerListPanel customerListPanel;
     private CreateNewCustomerPanel createNewCustomerPanel;
     private PlainingPanel plainingPanel;
     private UserListPanel userListPanel;
     private CreateNewUserPanel createNewUserPanel;
+    private PlanListPanel planListPanel;
 
     private void initPanels(JPanel mainPanel, CardLayout cl) {
         freelancerListPanel = new FreelancerListPanel(mainPanel, cl);
@@ -447,13 +423,12 @@ public class MainJFrame extends javax.swing.JFrame {
         createNewProjectPanel = new CreateNewProjectPanel();
         skillListPanel = new SkillListPanel(mainPanel, cl);
         createNewSkillPanel = new CreateNewSkillPanel();
-        userDetailPanel = new UserDetailPanel();
-        editUserDetailPanel = new EditUserDetailPanel();
         customerListPanel = new CustomerListPanel(mainPanel, cl);
         createNewCustomerPanel = new CreateNewCustomerPanel();
         plainingPanel = new PlainingPanel(mainPanel, cl);
         userListPanel = new UserListPanel(mainPanel, cl);
         createNewUserPanel = new CreateNewUserPanel();
+        planListPanel = new PlanListPanel(mainPanel, cl);
     }
 
     private void setGroupLayout() {
@@ -464,19 +439,28 @@ public class MainJFrame extends javax.swing.JFrame {
         mainPanel.add(createNewProjectPanel, CREATE_NEW_PROJECT);
         mainPanel.add(skillListPanel, SKILL_LIST);
         mainPanel.add(createNewSkillPanel, CREATE_NEW_SKILL);
-        mainPanel.add(userDetailPanel, USER_DETAIL);
-        mainPanel.add(editUserDetailPanel, EDIT_USER_DETAIL);
         mainPanel.add(customerListPanel, CUSTOMER_LIST);
         mainPanel.add(createNewCustomerPanel, CREATE_NEW_CUSTOMER);
         mainPanel.add(plainingPanel, PLAINING);
         mainPanel.add(userListPanel, USER_LIST);
         mainPanel.add(createNewUserPanel, CREATE_NEW_USER);
+        mainPanel.add(planListPanel, PLAN_LIST);
     }
 
     private void handleLoginInfo() {
         User loginUser = SessionManager.getCurrentUser();
         String fullName = loginUser.getFullName();
-        userMenu.setText("Hồ sơ ("+fullName+")");
+        String role = loginUser.getRole();
+        disableMenuByUserRole(role);
         
+    }
+    
+    private void disableMenuByUserRole(String role) {
+        if (role.equalsIgnoreCase("user")) {
+            // hide user menu for admin
+            userMenu.setVisible(false);
+            userListMenuItem.setVisible(false);
+            createNewUserMenuItem.setVisible(false);
+        }
     }
 }

@@ -27,6 +27,14 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="kehoachMenu">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="K&#x1ebe; HO&#x1ea0;CH"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="kehoachMenuMouseClicked"/>
+          </Events>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="freelancerMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Freelancer"/>
@@ -140,29 +148,6 @@
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="userMenu">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="H&#x1ed3; s&#x1a1;"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="userDetailMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Chi ti&#x1ebf;t"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userDetailMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="editUserDetailMenuItem">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x110;i&#x1ec1;u ch&#x1ec9;nh"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editUserDetailMenuItemActionPerformed"/>
-              </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
           </Properties>

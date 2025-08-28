@@ -183,7 +183,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="addNewButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#x1ea1;o k&#x1ebf; ho&#x1ea1;ch"/>
+            <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t k&#x1ebf; ho&#x1ea1;ch"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewButtonActionPerformed"/>

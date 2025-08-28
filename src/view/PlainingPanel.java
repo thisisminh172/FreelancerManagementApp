@@ -245,6 +245,7 @@ public class PlainingPanel extends javax.swing.JPanel {
     private void duanComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_duanComboBoxItemStateChanged
         // TODO add your handling code here:
         loadInfo();
+        checkFreelancerComboBox();
     }//GEN-LAST:event_duanComboBoxItemStateChanged
 
     private void addNewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewButtonActionPerformed
@@ -336,6 +337,24 @@ public class PlainingPanel extends javax.swing.JPanel {
             freelancerPanel.add(cb);
         }
         freelancerScrollPane.setViewportView(freelancerPanel);
+
+        checkFreelancerComboBox();
+
+    }
+
+    private void checkFreelancerComboBox() {
+        for (JCheckBox cb : checkBoxes.values()) {
+            cb.setSelected(false);
+        }
+        DuAn da = (DuAn) duanComboBox.getSelectedItem();
+        // get freelancer id from du an check
+        List<Map<String, Object>> dsDuAnFreelancer = duAnController.getDuAnFreelancerByDuAnId(da.getId());
+        for (Map<String, Object> f : dsDuAnFreelancer) {
+            int freelancerId = (int) f.get("freelancer_id");
+            if (checkBoxes.containsKey(freelancerId)) {
+                checkBoxes.get(freelancerId).setSelected(true);
+            }
+        }
     }
 
     private void firstLoad() {

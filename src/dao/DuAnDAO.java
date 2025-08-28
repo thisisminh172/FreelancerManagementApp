@@ -134,4 +134,23 @@ public class DuAnDAO {
         }
         return 0;
     }
+    
+    public List<Map<String, Object>> getDuAnFreelancerByDuAnId(int duanId) {
+        String sql = "SELECT * FROM du_an_freelancer WHERE du_an_id = ?";
+        List<Map<String, Object>> results = new ArrayList<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, duanId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Map<String, Object> row = new HashMap<>();
+                    row.put("du_an_id", rs.getInt("du_an_id"));
+                    row.put("freelancer_id", rs.getInt("freelancer_id"));
+                    results.add(row);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DuAnDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return results;
+    }
 }

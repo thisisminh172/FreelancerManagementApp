@@ -47,4 +47,8 @@ public class DuAnController {
     public int insertDuAnFreelancer(int duanId, int freelancerId) {
         return duAnDAO.insertDuAnFreelancer(duanId, freelancerId);
     }
+
+    public List<Map<String, Object>> getDuAnFreelancerByDuAnId(int duanId) {
+        return duAnDAO.getDuAnFreelancerByDuAnId(duanId);
+    }
 }

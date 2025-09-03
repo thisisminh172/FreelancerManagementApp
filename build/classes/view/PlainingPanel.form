@@ -112,7 +112,7 @@
                           <Component id="freelancerScrollPane" min="-2" pref="380" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -160,7 +160,7 @@
                       <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="freelancerScrollPane" alignment="0" min="-2" pref="326" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="109" max="32767" attributes="0"/>
+                  <EmptySpace pref="115" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="addNewButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="clearButton" alignment="3" min="-2" max="-2" attributes="0"/>

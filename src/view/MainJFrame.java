@@ -45,6 +45,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        wrapperPanel = new javax.swing.JPanel();
         mainPanel = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mainMenu = new javax.swing.JMenu();
@@ -72,7 +73,12 @@ public class MainJFrame extends javax.swing.JFrame {
         setTitle("Quản lý Freelancer");
         setLocationByPlatform(true);
 
+        wrapperPanel.setPreferredSize(new java.awt.Dimension(830, 530));
+        wrapperPanel.setLayout(new java.awt.GridBagLayout());
+
+        mainPanel.setPreferredSize(new java.awt.Dimension(840, 560));
         mainPanel.setLayout(new java.awt.CardLayout());
+        wrapperPanel.add(mainPanel, new java.awt.GridBagConstraints());
 
         mainMenu.setText("Main");
 
@@ -224,12 +230,12 @@ public class MainJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addComponent(wrapperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(wrapperPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -384,6 +390,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu skillMenu;
     private javax.swing.JMenuItem userListMenuItem;
     private javax.swing.JMenu userMenu;
+    private javax.swing.JPanel wrapperPanel;
     // End of variables declaration//GEN-END:variables
 
     private String FREELANCER_LIST = "FREELANCER_LIST_PANEL";

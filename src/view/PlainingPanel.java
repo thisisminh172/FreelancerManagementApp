@@ -41,7 +41,6 @@ public class PlainingPanel extends javax.swing.JPanel {
 
         fetchDuAnComboBox();
         firstLoad();
-        addFreelancerToScrollPane();
     }
 
     /**
@@ -262,12 +261,23 @@ public class PlainingPanel extends javax.swing.JPanel {
 
             DuAn da = (DuAn) duanComboBox.getSelectedItem();
             duAnController.clearDuAnFreelancerByDuAnId(da.getId());
-            for (Map.Entry<Integer, JCheckBox> entry : checkBoxes.entrySet()) {
-                Integer key = entry.getKey();
-                JCheckBox cb = entry.getValue();
+            int checkedCount = 0;
+            for (JCheckBox cb : checkBoxes.values()) {
                 if (cb.isSelected()) {
-                    num = duAnController.insertDuAnFreelancer(da.getId(), key);
+                    checkedCount++;
+                }
+            }
+            if (checkedCount == 0) {
+                JOptionPane.showMessageDialog(this, "Lập kế hoạch thành công");
+                return;
+            } else {
+                for (Map.Entry<Integer, JCheckBox> entry : checkBoxes.entrySet()) {
+                    Integer key = entry.getKey();
+                    JCheckBox cb = entry.getValue();
+                    if (cb.isSelected()) {
+                        num = duAnController.insertDuAnFreelancer(da.getId(), key);
 
+                    }
                 }
             }
 
@@ -359,6 +369,7 @@ public class PlainingPanel extends javax.swing.JPanel {
 
     private void firstLoad() {
         loadInfo();
+        addFreelancerToScrollPane();
     }
 
     private void loadInfo() {

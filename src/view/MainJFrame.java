@@ -100,6 +100,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(mainMenu);
 
+        kehoachMenu.setForeground(new java.awt.Color(255, 51, 51));
         kehoachMenu.setText("KẾ HOẠCH");
         kehoachMenu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -329,7 +330,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void kehoachMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kehoachMenuMouseClicked
         // TODO add your handling code here:
         cl.show(mainPanel, PLAN_LIST);
-//        planListPanel.reloadTable();
+        planListPanel.reloadTable();
     }//GEN-LAST:event_kehoachMenuMouseClicked
 
     /**

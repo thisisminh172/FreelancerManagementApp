@@ -41,11 +41,15 @@ public class FreelancerDAO {
                 + "    FROM freelancer f \n"
                 + "    LEFT JOIN du_an_freelancer da_f ON f.id = da_f.freelancer_id\n"
                 + "    LEFT JOIN du_an da ON da_f.du_an_id = da.id\n"
-                + ")\n"
+                + "),\n"
+                + "f_info AS (\n"
                 + "SELECT f.id, f.ho_ten, f.email, f.so_dien_thoai, f_kn.dskynang, f_da.tenduan, f_da.trangthai\n"
                 + "FROM freelancer f\n"
                 + "LEFT JOIN f_kn ON f.id = f_kn.freelancerid\n"
-                + "LEFT JOIN f_da ON f.id = f_da.freelancerid";
+                + "LEFT JOIN f_da ON f.id = f_da.freelancerid\n"
+                + ")\n"
+                + "SELECT id, ho_ten, email, so_dien_thoai, dskynang, trangthai FROM f_info\n"
+                + "GROUP BY id, ho_ten, email, so_dien_thoai, dskynang, trangthai";
         try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             ResultSetMetaData meta = rs.getMetaData();
             int columnCount = meta.getColumnCount();
@@ -131,7 +135,7 @@ public class FreelancerDAO {
         }
         return null;
     }
-    
+
     public List<KyNang> getFreelancerKyNangById(int id) {
         List<KyNang> list = new ArrayList<>();
         String sql = "SELECT k.id, k.ten FROM ky_nang k "
@@ -151,7 +155,7 @@ public class FreelancerDAO {
         }
         return list;
     }
-    
+
     public int deleteAllFreelancerKyNangById(int id) {
         String sql = "DELETE FROM freelancer_kynang WHERE freelancer_id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

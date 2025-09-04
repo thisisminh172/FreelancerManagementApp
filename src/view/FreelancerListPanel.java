@@ -323,7 +323,7 @@ public class FreelancerListPanel extends javax.swing.JPanel {
                     .addComponent(jLabel11)
                     .addComponent(kynangScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(updateButton)
                     .addComponent(deleteButton))
                 .addGap(38, 38, 38))
